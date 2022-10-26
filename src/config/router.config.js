@@ -1,4 +1,6 @@
-const asyncRouterMap = [
+import { UserLayout } from '@/layouts'
+
+export const asyncRouterMap = [
   {
     path: '/',
     redirect: '/home',
@@ -6,10 +8,16 @@ const asyncRouterMap = [
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/components/Home')
+        component: () => import('@/view/Home')
       }
     ]
   }
 ]
 
-export default asyncRouterMap
+export const constantRouterMap = [
+  {
+    path: '/',
+    name: 'login',
+    component: UserLayout
+  }
+]
