@@ -1,23 +1,9 @@
-import { createRouter, createWebHashHistory } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+import asyncRouterMap from "@/config/router.config"
 
-
-const routes = [
-  {
-    path: "/",
-    redirect: "/home"
-  },
-  {
-    path: "",
-    redirect: "/home"
-  },
-  {
-    path: "/home",
-    name: "home",
-    component: () => import('../components/Home')
-  }
-]
-
-export const router = createRouter({
-  history: createWebHashHistory(),
-  routes: routes
+const router = createRouter({
+  history: createWebHistory(),
+  routes: asyncRouterMap
 })
+
+export default router

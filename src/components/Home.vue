@@ -6,9 +6,7 @@ const msg = reactive({
 });
 </script>
 
-<template>
-  <div>{{ msg.text }}</div>
-</template>
+<template>111111111111111111111</template>
 
 <style scoped>
 </style>
