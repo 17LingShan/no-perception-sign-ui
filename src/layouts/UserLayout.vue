@@ -2,8 +2,10 @@
   <div id="user-layout">
     <div class="container">
       <div class="user-layout-content">
-        <div class="top">LingShan</div>
-        <div class="content">简介</div>
+        <div class="top">
+          <div class="header">LingShan</div>
+          <div class="desc">简介</div>
+        </div>
 
         <router-view />
 
@@ -18,28 +20,37 @@
 
 <style lang="scss" scoped>
 #user-layout {
-  width: 100%;
   height: 100%;
+
   .container {
     position: relative;
     width: 100%;
-    padding: 10px;
     min-height: 100%;
-    background-image: url("@/assets/user-background.jpg");
+    padding-top: 60px;
+    background: url("@/assets/user-background.jpg") no-repeat 50%;
     background-size: 100%;
 
     .user-layout-content {
-      text-align: center;
-
+      padding: 32px 0 24px;
       .top {
-        margin-top: 50px;
-        font-size: 24px;
+        text-align: center;
+
+        .header {
+          height: 44px;
+          line-height: 44px;
+          font-size: 32px;
+        }
+
+        .desc {
+          font-size: 24px;
+          margin: 20px 0 50px;
+        }
       }
 
-      .content {
-        font-size: 14px;
-        margin-top: 18px;
-        margin-bottom: 30px;
+      .login-main {
+        min-width: 260px;
+        width: 368px;
+        margin: 0 auto;
       }
     }
   }
