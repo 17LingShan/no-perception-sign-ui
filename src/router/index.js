@@ -6,4 +6,10 @@ const router = createRouter({
   routes: constantRouterMap
 })
 
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(from);
+  next()
+})
+
 export default router
