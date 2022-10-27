@@ -10,5 +10,12 @@ export default defineConfig({
     alias: {
       '@': join(__dirname, "src")
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // additionalData: `@import './src/styles/global.scss';`
+      }
+    }
   }
 })
