@@ -17,5 +17,18 @@ export default defineConfig({
         // additionalData: `@import './src/styles/global.scss';`
       }
     }
-  }
+  },
+  // server: {
+  //   port: '6512',
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://47.113.203.151:5000',
+  //       ws: false,
+  //       changeOrigin: true,
+  //       rewrite: {
+  //         '^/api': ''
+  //       }
+  //     }
+  //   }
+  // }
 })
