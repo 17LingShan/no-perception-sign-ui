@@ -1,32 +1,50 @@
 <template>
   <div class="login-main">
 
-    <a-form id="login-form">
+    <a-form
+    id="login-form"
+    ref="formRef"
+    :model="user"
+    layout="vertical"
+    >
       <a-tabs v-model:activeKey="tabs.activeKey" centered>
         <a-tab-pane key="login" tab="登录" >
-          <a-form-item >
-            <a-input size="large"
+          <a-form-item
+            name="email"
+            :rules="[{ required: true, message: 'Please input your username!' }]"
+          >
+            <a-input
+            v-model:value="user.email"
+            size="large"
             type="text"
             placeholder="账户：admin"
-          >
+            >
               <template #prefix>
               <UserOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
 
-            <a-form-item >
-            <a-input size="large"
-            type="password"
-            placeholder="密码：123456"
+          <a-form-item
+            name="password"
+            :rules="[{ required: true, message: 'Please input your username!' }]"
           >
+            <a-input
+              v-model:value="user.password"
+              size="large"
+              type="password"
+              placeholder="密码：123456"
+              @change="sss"
+            >
               <template #prefix>
               <LockOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
 
-        <a-form-item>
+        <a-form-item
+          name="autoLogin"
+        >
           <a-checkbox v-model:checked="user.autoLogin" @change="checkedChange" >自动登录</a-checkbox>
           <a href="javascript:;" style="float: right">忘记密码</a>
         </a-form-item>
@@ -74,25 +92,27 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { login } from '@/api/user'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 const tabs = reactive({
   activeKey: 'login'
 })
 
-onMounted(()=> {
-  console.log(1)
-  login()
-})
+const formRef = ref()
 
 const user = reactive({
-  username: null,
+  email: null,
   password: null,
   autoLogin: false
 })
 
-const getLogin = () => {
+function getLogin() {
+  const data = new FormData()
+  data.append('email', user.email).append('password', user.password)
+}
+
+function sss() {
 
 }
 
