@@ -2,8 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import Antd from 'ant-design-vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 import 'ant-design-vue/dist/antd.css'
 import '@/styles/global.scss'
 

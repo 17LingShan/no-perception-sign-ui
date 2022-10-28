@@ -4,7 +4,7 @@ const api = {
   login: '/user/student_login'
 }
 
-export function login(Data) {
+export function login (Data) {
   return requestService({
     url: api.login,
     method: 'post',

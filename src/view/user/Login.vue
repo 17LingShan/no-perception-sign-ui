@@ -1,26 +1,31 @@
 <template>
   <div class="login-main">
-
     <a-form
-    id="login-form"
-    ref="formRef"
-    :model="user"
-    layout="vertical"
+      id="login-form"
+      ref="userForm"
+      :model="user"
+      layout="vertical"
     >
-      <a-tabs v-model:activeKey="tabs.activeKey" centered>
-        <a-tab-pane key="login" tab="登录" >
+      <a-tabs
+        v-model:activeKey="tabs.activeKey"
+        centered
+      >
+        <a-tab-pane
+          key="login"
+          tab="登录"
+        >
           <a-form-item
             name="email"
             :rules="[{ required: true, message: 'Please input your username!' }]"
           >
             <a-input
-            v-model:value="user.email"
-            size="large"
-            type="text"
-            placeholder="账户：admin"
+              v-model:value="user.email"
+              size="large"
+              type="text"
+              placeholder="账户：admin"
             >
               <template #prefix>
-              <UserOutlined style="margin-right: 5px" />
+                <UserOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
@@ -34,57 +39,79 @@
               size="large"
               type="password"
               placeholder="密码：123456"
-              @change="sss"
             >
               <template #prefix>
-              <LockOutlined style="margin-right: 5px" />
+                <LockOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
 
-        <a-form-item
-          name="autoLogin"
-        >
-          <a-checkbox v-model:checked="user.autoLogin" @change="checkedChange" >自动登录</a-checkbox>
-          <a href="javascript:;" style="float: right">忘记密码</a>
-        </a-form-item>
+          <a-form-item name="autoLogin">
+            <a-checkbox
+              v-model:checked="user.autoLogin"
+              @change="checkedChange"
+            >自动登录</a-checkbox>
+            <a
+              href="javascript:;"
+              style="float: right"
+            >忘记密码</a>
+          </a-form-item>
 
-        <a-form-item>
-          <a-button type="primary" style="width: 100%; margin-top: 10px;">登录</a-button>
-        </a-form-item>
+          <a-form-item>
+            <a-button
+              type="primary"
+              style="width: 100%; margin-top: 10px;"
+              @click="getLogin"
+            >登录</a-button>
+          </a-form-item>
         </a-tab-pane>
 
-        <a-tab-pane key="register" tab="注册">
-          <a-form-item >
-            <a-input size="large"
-            type="text"
-            placeholder="账户：admin"
-          >
+        <a-tab-pane
+          key="register"
+          tab="注册"
+        >
+          <a-form-item>
+            <a-input
+              size="large"
+              type="text"
+              placeholder="账户：admin"
+            >
               <template #prefix>
-              <UserOutlined style="margin-right: 5px" />
+                <UserOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
 
-          <a-form-item >
-            <a-input size="large"
-            type="password"
-            placeholder="密码：123456"
-          >
+          <a-form-item>
+            <a-input
+              size="large"
+              type="password"
+              placeholder="密码：123456"
+            >
               <template #prefix>
-              <LockOutlined style="margin-right: 5px" />
+                <LockOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
 
-        <a-form-item>
-          <a-checkbox v-model:checked="user.autoLogin" @change="checkedChange" >自动登录</a-checkbox>
-          <a href="javascript:;" style="float: right">忘记密码</a>
-        </a-form-item>
+          <a-form-item>
+            <a-checkbox
+              v-model:checked="user.autoLogin"
+              @change="checkedChange"
+            >自动登录</a-checkbox>
+            <a
+              href="javascript:;"
+              style="float: right"
+            >忘记密码</a>
+          </a-form-item>
 
-        <a-form-item>
-          <a-button type="primary" style="width: 100%; margin-top: 10px;" @click="getLogin" >登录</a-button>
-        </a-form-item>
+          <a-form-item>
+            <a-button
+              type="primary"
+              style="width: 100%; margin-top: 10px;"
+              @click="getLogin"
+            >登录</a-button>
+          </a-form-item>
         </a-tab-pane>
       </a-tabs>
     </a-form>
@@ -92,14 +119,15 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { login } from '@/api/user'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+
 const tabs = reactive({
   activeKey: 'login'
 })
 
-const formRef = ref()
+const userForm = ref()
 
 const user = reactive({
   email: null,
@@ -107,13 +135,15 @@ const user = reactive({
   autoLogin: false
 })
 
-function getLogin() {
-  const data = new FormData()
-  data.append('email', user.email).append('password', user.password)
-}
-
-function sss() {
-
+const getLogin = () => {
+  userForm.value.validateFields().then((res)=> {
+    const data = new FormData()
+    data.append('email', res.email)
+    data.append('password', res.password)
+    login(data).then((res) => {
+      console.log(res.data);
+    })
+  })
 }
 
 const checkedChange = () => {
