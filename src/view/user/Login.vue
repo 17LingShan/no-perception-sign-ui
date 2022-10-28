@@ -1,5 +1,6 @@
 <template>
   <div class="login-main">
+
     <a-form id="login-form">
       <a-tabs v-model:activeKey="tabs.activeKey" centered>
         <a-tab-pane key="login" tab="登录" >
@@ -8,10 +9,20 @@
             type="text"
             placeholder="账户：admin"
           >
-            <template #prefix>
-              <a-icon type="lock" />
-            </template>
-          </a-input>
+              <template #prefix>
+              <UserOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+          <a-form-item >
+            <a-input size="large"
+            type="password"
+            placeholder="密码：123456"
+          >
+              <template #prefix>
+              <LockOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
           </a-form-item>
         </a-tab-pane>
         <a-tab-pane key="register" tab="注册">注册</a-tab-pane>
@@ -22,6 +33,7 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 
 const tabs = reactive({
   activeKey: 'login'
