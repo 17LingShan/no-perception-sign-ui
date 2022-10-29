@@ -39,7 +39,7 @@
               v-model:value="user.password"
               size="large"
               type="password"
-              placeholder="密码：123456"
+              placeholder="密码"
             >
               <template #prefix>
                 <LockOutlined style="margin-right: 5px" />
@@ -62,7 +62,7 @@
             <a-button
               type="primary"
               style="width: 100%; margin-top: 10px;"
-              @click="getLogin"
+              @click="login"
             >登录</a-button>
           </a-form-item>
         </a-tab-pane>
@@ -71,37 +71,6 @@
           key="register"
           tab="注册"
         >
-          <a-form-item
-            name="username"
-            :rules="[{ required: true, message: 'Please input your username!' }]"
-          >
-            <a-input
-              v-model:value="user.username"
-              size="large"
-              type="text"
-              placeholder="用户名"
-            >
-              <template #prefix>
-                <UserOutlined style="margin-right: 5px" />
-              </template>
-            </a-input>
-          </a-form-item>
-
-          <a-form-item
-            name="studentId"
-            :rules="[{ required: true, message: 'Please input your studentId!' }]"
-          >
-            <a-input
-              v-model:value="user.studentId"
-              size="large"
-              type="text"
-              placeholder="学号"
-            >
-              <template #prefix>
-                <IdcardOutlined style="margin-right: 5px" />
-              </template>
-            </a-input>
-          </a-form-item>
 
           <a-form-item
             name="email"
@@ -118,7 +87,7 @@
               </template>
             </a-input>
           </a-form-item>
-
+          <!--
           <a-form-item
             name="password"
             :rules="[{ required: true, message: 'Please input your password!' }]"
@@ -133,7 +102,7 @@
                 <LockOutlined style="margin-right: 5px" />
               </template>
             </a-input>
-          </a-form-item>
+          </a-form-item> -->
 
           <a-row :gutter="16">
             <a-col>
@@ -145,7 +114,7 @@
                   placeholder="验证码"
                 >
                   <template #prefix>
-                    <MailOutlined style="margin-right: 5px" />
+                    <VerifiedOutlined style="margin-right: 5px" />
                   </template>
                 </a-input>
               </a-form-item>
@@ -171,7 +140,7 @@
             <a-button
               type="primary"
               style="width: 100%; margin-top: 10px;"
-              @click="getLogin"
+              @click="register"
             >注册</a-button>
           </a-form-item>
         </a-tab-pane>
@@ -183,7 +152,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { useStore, mapActions } from 'vuex'
-import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
 
 const tabs = reactive({
   activeKey: 'register'
@@ -200,7 +169,7 @@ const user = reactive({
   captcha: null,
   autoLogin: false,
 })
-const getLogin = () => {
+const login = () => {
   userForm.value.validateFields().then(async (values)=> {
     const data = new FormData()
     data.append('email', values.email)
@@ -213,8 +182,9 @@ const getLogin = () => {
 }
 
 const register = () => {
-  userForm.value.validateFields().then(async (value) => {
+  userForm.value.validateFields().then(async (values) => {
     const data = new FormData()
+    console.log(values);
 
   })
 }

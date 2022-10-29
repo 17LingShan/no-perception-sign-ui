@@ -24,6 +24,11 @@ export const constantRouterMap = [
         path: '/user/login',
         name: 'login',
         component: () => import('@/view/user/Login')
+      },
+      {
+        path: '/user/register',
+        name: 'register',
+        component: () => import('@/view/user/Register')
       }
     ]
   }
