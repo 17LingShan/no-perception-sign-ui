@@ -119,8 +119,8 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { login } from '@/api/user'
+import { computed, reactive, ref } from 'vue'
+import { useStore, mapActions } from 'vuex'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 
 const tabs = reactive({
@@ -128,26 +128,27 @@ const tabs = reactive({
 })
 
 const userForm = ref()
+const store = useStore()  // store
 
 const user = reactive({
   email: null,
   password: null,
   autoLogin: false
 })
-
 const getLogin = () => {
-  userForm.value.validateFields().then((res)=> {
+  userForm.value.validateFields().then(async (res)=> {
     const data = new FormData()
     data.append('email', res.email)
     data.append('password', res.password)
-    login(data).then((res) => {
-      console.log(res.data);
+    await store.dispatch('Login', data).then(res => {
+      console.log(res)
     })
+    userForm.value.resetFields()
   })
 }
 
 const checkedChange = () => {
-  console.log(user.autoLogin);
+  console.log(user.autoLogin)
 }
 </script>
 
