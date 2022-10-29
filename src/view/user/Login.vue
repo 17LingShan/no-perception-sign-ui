@@ -7,6 +7,7 @@
       layout="vertical"
     >
       <a-tabs
+        tabPosition="top"
         v-model:activeKey="tabs.activeKey"
         centered
       >
@@ -25,7 +26,7 @@
               placeholder="账户：admin"
             >
               <template #prefix>
-                <UserOutlined style="margin-right: 5px" />
+                <MailOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
@@ -70,11 +71,15 @@
           key="register"
           tab="注册"
         >
-          <a-form-item>
+          <a-form-item
+            name="username"
+            :rules="[{ required: true, message: 'Please input your username!' }]"
+          >
             <a-input
+              v-model:value="user.username"
               size="large"
               type="text"
-              placeholder="账户：admin"
+              placeholder="用户名"
             >
               <template #prefix>
                 <UserOutlined style="margin-right: 5px" />
@@ -82,17 +87,74 @@
             </a-input>
           </a-form-item>
 
-          <a-form-item>
+          <a-form-item
+            name="studentId"
+            :rules="[{ required: true, message: 'Please input your studentId!' }]"
+          >
             <a-input
+              v-model:value="user.studentId"
+              size="large"
+              type="text"
+              placeholder="学号"
+            >
+              <template #prefix>
+                <IdcardOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+
+          <a-form-item
+            name="email"
+            :rules="[{ required: true, message: 'Please input your email!' }]"
+          >
+            <a-input
+              v-model:value="user.email"
+              size="large"
+              type="text"
+              placeholder="邮箱"
+            >
+              <template #prefix>
+                <MailOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+
+          <a-form-item
+            name="password"
+            :rules="[{ required: true, message: 'Please input your password!' }]"
+          >
+            <a-input
+              v-model:value="user.password"
               size="large"
               type="password"
-              placeholder="密码：123456"
+              placeholder="密码"
             >
               <template #prefix>
                 <LockOutlined style="margin-right: 5px" />
               </template>
             </a-input>
           </a-form-item>
+
+          <a-row :gutter="16">
+            <a-col>
+              <a-form-item :span="16">
+                <a-input
+                  v-model:value="user.captcha"
+                  size="large"
+                  type="text"
+                  placeholder="验证码"
+                >
+                  <template #prefix>
+                    <MailOutlined style="margin-right: 5px" />
+                  </template>
+                </a-input>
+              </a-form-item>
+            </a-col>
+
+            <a-col :span="8">
+              <a-button style="height: 40px; width: 100%">获取验证码</a-button>
+            </a-col>
+          </a-row>
 
           <a-form-item>
             <a-checkbox
@@ -110,7 +172,7 @@
               type="primary"
               style="width: 100%; margin-top: 10px;"
               @click="getLogin"
-            >登录</a-button>
+            >注册</a-button>
           </a-form-item>
         </a-tab-pane>
       </a-tabs>
@@ -121,10 +183,10 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { useStore, mapActions } from 'vuex'
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined } from '@ant-design/icons-vue'
 
 const tabs = reactive({
-  activeKey: 'login'
+  activeKey: 'register'
 })
 
 const userForm = ref()
@@ -132,18 +194,28 @@ const store = useStore()  // store
 
 const user = reactive({
   email: null,
+  username: null,
+  studentId: null,
   password: null,
-  autoLogin: false
+  captcha: null,
+  autoLogin: false,
 })
 const getLogin = () => {
-  userForm.value.validateFields().then(async (res)=> {
+  userForm.value.validateFields().then(async (values)=> {
     const data = new FormData()
-    data.append('email', res.email)
-    data.append('password', res.password)
+    data.append('email', values.email)
+    data.append('password', values.password)
     await store.dispatch('Login', data).then(res => {
       console.log(res)
     })
     userForm.value.resetFields()
+  })
+}
+
+const register = () => {
+  userForm.value.validateFields().then(async (value) => {
+    const data = new FormData()
+
   })
 }
 

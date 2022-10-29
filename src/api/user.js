@@ -1,13 +1,22 @@
 import { requestService } from '@/utils/request'
 
 const api = {
-  login: '/user/student_login'
+  login: '/user/student_login',
+  regiser: '/user/student_register'
 }
 
-export function login (Data) {
+export function login (data) {
   return requestService({
     url: api.login,
     method: 'post',
-    data: Data
+    data: data
+  })
+}
+
+export function regiser (data) {
+  return requestService({
+    url: api.regiser,
+    method: 'post',
+    data: data
   })
 }
