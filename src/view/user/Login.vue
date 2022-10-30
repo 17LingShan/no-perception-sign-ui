@@ -197,19 +197,20 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from 'vue'
-import { useStore, mapActions } from 'vuex'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { userStore } from '@/store/user'
 import { captcha } from '@/api/user'
 import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
+
+const piniaUser = userStore()
+
+
+const loginForm = ref()
+const registerForm = ref()
 
 const tabs = reactive({
   activeKey: 'register'
 })
-
-const loginForm = ref()
-const registerForm = ref()
-const store = useStore()  // store
-
 const loginInfo = reactive({
   email: null,
   password: null,
@@ -225,31 +226,39 @@ const registerInfo = reactive({
 })
 
 
+onMounted(() => {
+
+})
+
 const login = () => {
   loginForm.value.validateFields().then(async (values) => {
     const data = new FormData()
     data.append('email', values.email)
     data.append('password', values.password)
-    await store.dispatch('Login', data).then(res => {
-      console.log(res)
+    await piniaUser.Login(data).then(res => {
+      console.log(res);
     })
+    console.log(piniaUser.username)
     loginForm.value.resetFields()
   })
 }
 
 const register = () => {
-  registerForm.value.validateFields().then((res) => {
+  registerForm.value.validateFields().then(async (values) => {
 
   })
 }
 
 const getCaptcha = () => {
   registerForm.value.validateFields(['email']).then(async (values) => {
-    registerInfo.captchaBtn = '请等待'
+    registerInfo.captchaBtn = '验证码正在发送'
     const data = new FormData()
     data.append('email', values.email)
     captcha(data).then(res => {
+
       console.log(res);
+    }).catch((err) => {
+      console.log(err)
     })
   })
 }
