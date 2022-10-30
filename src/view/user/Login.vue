@@ -197,9 +197,9 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { userStore } from '@/store/user'
-import { captcha } from '@/api/user'
+// import { captcha } from '@/api/user'
 import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
 
 const piniaUser = userStore()
@@ -216,19 +216,14 @@ const loginInfo = reactive({
   password: null,
   autoLogin: false,
 })
-const registerInfo = reactive({
-  email: null,
-  captcha: null,
-  captchaBtn: '获取验证码',
-  username: null,
-  studentId: null,
-  password: null
-})
-
-
-onMounted(() => {
-
-})
+// const registerInfo = reactive({
+//   email: null,
+//   captcha: null,
+//   captchaBtn: '获取验证码',
+//   username: null,
+//   studentId: null,
+//   password: null
+// })
 
 const login = () => {
   loginForm.value.validateFields().then(async (values) => {
@@ -243,25 +238,34 @@ const login = () => {
   })
 }
 
-const register = () => {
-  registerForm.value.validateFields().then(async (values) => {
+// const register = () => {
+//   registerForm.value.validateFields().then(async (values) => {
+//     const data = new FormData()
+//     data.append('email', registerInfo.email)
+//     data.append('captcha', registerInfo.captcha)
+//     data.append('username', registerInfo.username)
+//     data.append('student_id', registerInfo.studentId)
+//     data.append('password', registerInfo.password)
+//     data.append('password_confirm', registerInfo.password)
+//     await piniaUser.Register(data).then((res) => {
+//       console.log(res);
+//     })
+//   })
+// }
 
-  })
-}
+// const getCaptcha = () => {
+//   registerForm.value.validateFields(['email']).then(async (values) => {
+//     registerInfo.captchaBtn = '验证码正在发送'
+//     const data = new FormData()
+//     data.append('email', values.email)
+//     captcha(data).then(res => {
 
-const getCaptcha = () => {
-  registerForm.value.validateFields(['email']).then(async (values) => {
-    registerInfo.captchaBtn = '验证码正在发送'
-    const data = new FormData()
-    data.append('email', values.email)
-    captcha(data).then(res => {
-
-      console.log(res);
-    }).catch((err) => {
-      console.log(err)
-    })
-  })
-}
+//       console.log(res);
+//     }).catch((err) => {
+//       console.log(err)
+//     })
+//   })
+// }
 
 const checkedChange = () => {
   console.log(loginInfo.autoLogin)

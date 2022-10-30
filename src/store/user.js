@@ -17,14 +17,18 @@ export const userStore = defineStore('user', {
           this.username = res.data.user_name
           this.token = res.data.token
           resolve(res)
-        }).catch(res => {
-          reject(res)
+        }).catch(err => {
+          reject(err)
         })
       })
     },
-    Register (regiserOInfo) {
+    Register (regiserInfo) {
       return new Promise((resolve, reject) => {
-
+        regiser(regiserInfo).then((res) => {
+          resolve(res)
+        }).catch((err) => {
+          reject(err)
+        })
       })
     }
   }
