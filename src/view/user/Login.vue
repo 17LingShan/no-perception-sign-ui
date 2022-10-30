@@ -1,29 +1,30 @@
 <template>
   <div class="login-main">
-    <a-form
-      id="login-form"
-      ref="userForm"
-      :model="user"
-      layout="vertical"
+
+    <a-tabs
+      tabPosition="top"
+      v-model:activeKey="tabs.activeKey"
+      centered
     >
-      <a-tabs
-        tabPosition="top"
-        v-model:activeKey="tabs.activeKey"
-        centered
+      <a-tab-pane
+        key="login"
+        tab="邮箱登录"
       >
-        <a-tab-pane
-          key="login"
-          tab="登录"
+        <a-form
+          id="login-form"
+          ref="loginForm"
+          :model="loginInfo"
         >
           <a-form-item
             name="email"
             :rules="[{ required: true, message: 'Please input your username!' }]"
           >
             <a-input
-              v-model:value="user.email"
+              id="loginEmail"
+              v-model:value="loginInfo.email"
               size="large"
               type="text"
-              placeholder="账户：admin"
+              placeholder="邮箱"
             >
               <template #prefix>
                 <MailOutlined style="margin-right: 5px" />
@@ -36,7 +37,7 @@
             :rules="[{ required: true, message: 'Please input your username!' }]"
           >
             <a-input
-              v-model:value="user.password"
+              v-model:value="loginInfo.password"
               size="large"
               type="password"
               placeholder="密码"
@@ -49,7 +50,7 @@
 
           <a-form-item name="autoLogin">
             <a-checkbox
-              v-model:checked="user.autoLogin"
+              v-model:checked="loginInfo.autoLogin"
               @change="checkedChange"
             >自动登录</a-checkbox>
             <a
@@ -65,19 +66,26 @@
               @click="login"
             >登录</a-button>
           </a-form-item>
-        </a-tab-pane>
+        </a-form>
+      </a-tab-pane>
 
-        <a-tab-pane
-          key="register"
-          tab="注册"
+      <a-tab-pane
+        key="register"
+        tab="邮箱注册"
+      >
+
+        <a-form
+          id="register-form"
+          ref="registerForm"
+          :model="registerInfo"
         >
-
           <a-form-item
             name="email"
             :rules="[{ required: true, message: 'Please input your email!' }]"
           >
             <a-input
-              v-model:value="user.email"
+              v-model:value="registerInfo.email"
+              id="registerEmail"
               size="large"
               type="text"
               placeholder="邮箱"
@@ -87,28 +95,16 @@
               </template>
             </a-input>
           </a-form-item>
-          <!--
-          <a-form-item
-            name="password"
-            :rules="[{ required: true, message: 'Please input your password!' }]"
-          >
-            <a-input
-              v-model:value="user.password"
-              size="large"
-              type="password"
-              placeholder="密码"
-            >
-              <template #prefix>
-                <LockOutlined style="margin-right: 5px" />
-              </template>
-            </a-input>
-          </a-form-item> -->
 
           <a-row :gutter="16">
             <a-col>
-              <a-form-item :span="16">
+              <a-form-item
+                :span="16"
+                name="captcha"
+                :rules="[{ required: true, message: 'Please input captcha!' }]"
+              >
                 <a-input
-                  v-model:value="user.captcha"
+                  v-model:value="registerInfo.captcha"
                   size="large"
                   type="text"
                   placeholder="验证码"
@@ -121,13 +117,64 @@
             </a-col>
 
             <a-col :span="8">
-              <a-button style="height: 40px; width: 100%">获取验证码</a-button>
+              <a-button
+                style="height: 40px; width: 100%"
+                @click="getCaptcha"
+              >{{ registerInfo.captchaBtn }}</a-button>
             </a-col>
           </a-row>
 
+          <a-form-item
+            name="username"
+            :rules="[{ required: true, message: 'Please input your username!' }]"
+          >
+            <a-input
+              v-model:value="registerInfo.username"
+              size="large"
+              type="text"
+              placeholder="用户名"
+            >
+              <template #prefix>
+                <UserOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+
+          <a-form-item
+            name="studentId"
+            :rules="[{ required: true, message: 'Please input your studentId!' }]"
+          >
+            <a-input
+              v-model:value="registerInfo.studentId"
+              size="large"
+              type="text"
+              placeholder="学号"
+            >
+              <template #prefix>
+                <IdcardOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+
+          <a-form-item
+            name="password"
+            :rules="[{ required: true, message: 'Please input your password!' }]"
+          >
+            <a-input
+              v-model:value="registerInfo.password"
+              size="large"
+              type="text"
+              placeholder="密码"
+            >
+              <template #prefix>
+                <LockOutlined style="margin-right: 5px" />
+              </template>
+            </a-input>
+          </a-form-item>
+
           <a-form-item>
             <a-checkbox
-              v-model:checked="user.autoLogin"
+              v-model:checked="loginInfo.autoLogin"
               @change="checkedChange"
             >自动登录</a-checkbox>
             <a
@@ -143,54 +190,72 @@
               @click="register"
             >注册</a-button>
           </a-form-item>
-        </a-tab-pane>
-      </a-tabs>
-    </a-form>
+        </a-form>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { useStore, mapActions } from 'vuex'
+import { captcha } from '@/api/user'
 import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
 
 const tabs = reactive({
   activeKey: 'register'
 })
 
-const userForm = ref()
+const loginForm = ref()
+const registerForm = ref()
 const store = useStore()  // store
 
-const user = reactive({
+const loginInfo = reactive({
   email: null,
-  username: null,
-  studentId: null,
   password: null,
-  captcha: null,
   autoLogin: false,
 })
+const registerInfo = reactive({
+  email: null,
+  captcha: null,
+  captchaBtn: '获取验证码',
+  username: null,
+  studentId: null,
+  password: null
+})
+
+
 const login = () => {
-  userForm.value.validateFields().then(async (values)=> {
+  loginForm.value.validateFields().then(async (values) => {
     const data = new FormData()
     data.append('email', values.email)
     data.append('password', values.password)
     await store.dispatch('Login', data).then(res => {
       console.log(res)
     })
-    userForm.value.resetFields()
+    loginForm.value.resetFields()
   })
 }
 
 const register = () => {
-  userForm.value.validateFields().then(async (values) => {
-    const data = new FormData()
-    console.log(values);
+  registerForm.value.validateFields().then((res) => {
 
   })
 }
 
+const getCaptcha = () => {
+  registerForm.value.validateFields(['email']).then(async (values) => {
+    registerInfo.captchaBtn = '请等待'
+    const data = new FormData()
+    data.append('email', values.email)
+    captcha(data).then(res => {
+      console.log(res);
+    })
+  })
+}
+
 const checkedChange = () => {
-  console.log(user.autoLogin)
+  console.log(loginInfo.autoLogin)
 }
 </script>
 
