@@ -31,5 +31,13 @@ export const constantRouterMap = [
         component: () => import('@/view/user/Register')
       }
     ]
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/view/Home'),
+    children: [
+
+    ]
   }
 ]

@@ -14,8 +14,8 @@ export const userStore = defineStore('user', {
   actions: {
     Login (loginInfo) {
       return new Promise((resolve, reject) => {
-        login(loginInfo, 0).then(res => {
-          this.userType = 0
+        login(loginInfo).then(res => {
+          this.userType = loginInfo.loginType
           this.username = res.data.user_name
           this.token = res.data.token
           resolve(res)

@@ -2,32 +2,41 @@ import { requestService } from '@/utils/request'
 
 const api = {
   studentLogin: '/user/student_login',
-  teacherLogin: '/user/teacher_login',
+  teacherLogin: '/teacher/teacher_login',
   regiser: '/user/student_register',
-  captcha: '/user/captcha'
+  captcha: '/user/captcha',
+  temp: '/user/student_id_register'
 }
 
-//loginType = 0：学生，loginType = 1：教师
-export function login (data, loginType) {
+//loginType = student：学生，loginType = teacher：教师
+export function login (parms) {
   return requestService({
-    url: loginType ? api.teacherLogin : api.studentLogin,
+    url: parms.loginType === 'teacher' ? api.teacherLogin : api.studentLogin,
     method: 'post',
-    data: data
+    data: parms.data
   })
 }
 
-export function regiser (data) {
+export function regiser (parms) {
   return requestService({
     url: api.regiser,
     method: 'post',
-    data: data
+    data: parms.data
   })
 }
 
-export function captcha (data) {
+export function captcha (parms) {
   return requestService({
     url: api.captcha,
     method: 'post',
-    data: data
+    data: parms.data
+  })
+}
+
+export function temp_login (parms) {
+  return requestService({
+    url: api.temp,
+    method: 'post',
+    data: parms.data
   })
 }
