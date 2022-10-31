@@ -26,9 +26,9 @@ export const userStore = defineStore('user', {
     },
     Register (regiserInfo) {
       return new Promise((resolve, reject) => {
-        regiser(regiserInfo).then((res) => {
+        regiser(regiserInfo).then(res => {
           resolve(res)
-        }).catch((err) => {
+        }).catch(err => {
           reject(err)
         })
       })

@@ -3,7 +3,8 @@ import { requestService } from '@/utils/request'
 const api = {
   studentLogin: '/user/student_login',
   teacherLogin: '/teacher/teacher_login',
-  regiser: '/user/student_register',
+  studentRegister: '/user/student_register',
+  teacherRegister: '/teacher/teacher_register',
   captcha: '/user/captcha',
   temp: '/user/student_id_register'
 }
@@ -19,7 +20,7 @@ export function login (parms) {
 
 export function regiser (parms) {
   return requestService({
-    url: api.regiser,
+    url: parms.loginType === 'teacher' ? api.teacherRegister : api.studentRegister,
     method: 'post',
     data: parms.data
   })

@@ -97,24 +97,32 @@
         :rules="[{ required: true, message: 'Please input your password!' }]"
       >
         <a-input
-          id="registerPassword"
-          v-model:value="registerInfo.passowrd"
+          id="password"
+          v-model:value="registerInfo.password"
           size="large"
-          type="text"
+          type="password"
           placeholder="密码"
         >
           <template #prefix>
-            <LockOutlined style="margin-right: 5px" />
+            <IdcardOutlined style="margin-right: 5px" />
           </template>
         </a-input>
       </a-form-item>
       <a-form-item>
-        <router-link :to="{ name:'login' }">
+        <router-link :to="{name: 'login'}">
           <a
             href="javascript:;"
-            style="float:right"
+            style="float: right"
           >登录</a>
         </router-link>
+      </a-form-item>
+
+      <a-form-item>
+        <a-button
+          type="primary"
+          style="width: 100%; margin-top: 10px;"
+          @click="register"
+        >注册</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -122,9 +130,14 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { userStore } from '@/store/user'
+import { useRouter } from 'vue-router'
 import { captcha } from '@/api/user'
-import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
+import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
+
+const piniaUser = userStore()
+const router = useRouter()
 
 const registerForm = ref()
 
@@ -135,7 +148,7 @@ const registerInfo = reactive({
   userType: null,
   email: null,
   username: null,
-  passowrd: null,
+  password: null,
   captcha: null,
   userId: null
 })
@@ -156,6 +169,26 @@ const getCaptcha = () => {
   })
 }
 
+const register = () => {
+  registerForm.value.validateFields().then(async values => {
+    const data = new FormData()
+    data.append('email', values.email)
+    data.append('captcha', values.captcha)
+    data.append('username', values.username)
+    data.append('password', values.passowrd)
+    data.append('password_confirm', values.passowrd)
+    data.append('student_id', values.userId)
+    const loginType = tabs.activeKey
+    await piniaUser.Register({ data, loginType }).then(res => {
+      if (res.data.code === 200) {
+        message.success({ content: '注册成功！' })
+        router.push({ name: 'login' })
+      }
+      else message.error({ content: '注册失败！同一学号请勿重复注册！' })
+    })
+  })
+  registerForm.value.resetFields()
+}
 
 
 </script>

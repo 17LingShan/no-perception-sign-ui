@@ -63,7 +63,7 @@
           <a
             href="javascript:;"
             style="float: right"
-          >注册账号</a>
+          >注册</a>
         </router-link>
       </a-form-item>
 
