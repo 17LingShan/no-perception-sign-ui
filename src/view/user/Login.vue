@@ -18,7 +18,6 @@
 
     </a-tabs>
     <a-form
-      id="student-form"
       ref="userForm"
       :model="loginInfo"
     >
@@ -84,7 +83,7 @@ import { reactive, ref } from 'vue'
 import { userStore } from '@/store/user'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
+import { LockOutlined, MailOutlined } from '@ant-design/icons-vue'
 
 const piniaUser = userStore()
 const router = useRouter()
