@@ -4,8 +4,9 @@ import { login, regiser } from '@/api/user'
 export const userStore = defineStore('user', {
   state: () => {
     return {
+      userType: null,
       username: null,
-      studentId: null,
+      userId: null,
       token: null
     }
   },
@@ -13,7 +14,8 @@ export const userStore = defineStore('user', {
   actions: {
     Login (loginInfo) {
       return new Promise((resolve, reject) => {
-        login(loginInfo).then(res => {
+        login(loginInfo, 0).then(res => {
+          this.userType = 0
           this.username = res.data.user_name
           this.token = res.data.token
           resolve(res)

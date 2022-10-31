@@ -6,9 +6,7 @@
           <div class="header">LingShan</div>
           <div class="desc">简介</div>
         </div>
-
         <router-view />
-
         <div class="footer"></div>
       </div>
     </div>

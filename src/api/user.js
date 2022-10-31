@@ -1,14 +1,16 @@
 import { requestService } from '@/utils/request'
 
 const api = {
-  login: '/user/student_login',
+  studentLogin: '/user/student_login',
+  teacherLogin: '/user/teacher_login',
   regiser: '/user/student_register',
   captcha: '/user/captcha'
 }
 
-export function login (data) {
+//loginType = 0：学生，loginType = 1：教师
+export function login (data, loginType) {
   return requestService({
-    url: api.login,
+    url: loginType ? api.teacherLogin : api.studentLogin,
     method: 'post',
     data: data
   })
