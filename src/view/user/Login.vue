@@ -115,8 +115,8 @@ const login = () => {
     }).catch((err) => {
       message.warn({ content: '登录失败！请检查账号密码是否正确！' })
     })
-
     userForm.value.resetFields()
+  }).catch(err => {
   })
 }
 

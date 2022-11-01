@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { login, regiser } from '@/api/user'
+import { TOKEN } from './mutation-types'
 
 export const userStore = defineStore('user', {
   state: () => {
@@ -18,6 +19,7 @@ export const userStore = defineStore('user', {
           this.userType = loginInfo.loginType
           this.username = res.data.user_name
           this.token = res.data.token
+          window.localStorage.setItem(TOKEN, res.data.token)
           resolve(res)
         }).catch(err => {
           reject(err)

@@ -186,10 +186,10 @@ const register = () => {
       }
       else message.error({ content: '注册失败！同一学号请勿重复注册！' })
     })
+    registerForm.value.resetFields()
+  }).catch(err => {
   })
-  registerForm.value.resetFields()
 }
-
 
 </script>
 
