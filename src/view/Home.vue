@@ -1,4 +1,8 @@
-<template>11111111111111</template>
+<template>
+  <pro-layout :menu="menus">
+
+  </pro-layout>
+</template>
 
 <script setup>
 import { reactive } from "@vue/reactivity";

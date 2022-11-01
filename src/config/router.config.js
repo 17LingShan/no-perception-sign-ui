@@ -1,4 +1,4 @@
-import { UserLayout } from '@/layouts'
+import { UserLayout, BasicLayout } from '@/layouts'
 
 export const asyncRouterMap = [
   {
@@ -35,7 +35,7 @@ export const constantRouterMap = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/view/Home'),
+    component: BasicLayout,
     children: [
 
     ]
