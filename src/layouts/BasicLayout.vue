@@ -5,10 +5,13 @@
 
 </template>
 <script>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import router from '@/router'
 const menus = ref([])
 
+onMounted(() => {
+  console.log(1);
+})
 
 
 </script>

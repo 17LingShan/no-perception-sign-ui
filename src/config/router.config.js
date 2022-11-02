@@ -31,6 +31,12 @@ export const constantRouterMap = [
   {
     path: '/index',
     name: 'index',
-    component: BasicLayout
+    component: BasicLayout,
+    children: [
+      {
+        path: '/cource',
+        name: 'cource',
+      }
+    ]
   }
 ]
