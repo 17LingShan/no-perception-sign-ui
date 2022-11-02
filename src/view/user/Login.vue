@@ -111,8 +111,9 @@ const login = () => {
       console.log(piniaUser.username)
       console.log(piniaUser.userType)
       message.success({ content: '登录成功！' })
-      router.push({ name: 'home' })
+      router.push({ name: 'index' })
     }).catch((err) => {
+      console.log(err)
       message.warn({ content: '登录失败！请检查账号密码是否正确！' })
     })
     userForm.value.resetFields()

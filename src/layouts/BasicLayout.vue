@@ -6,7 +6,7 @@
 </template>
 <script>
 import { reactive, ref } from 'vue'
-
+import router from '@/router'
 const menus = ref([])
 
 

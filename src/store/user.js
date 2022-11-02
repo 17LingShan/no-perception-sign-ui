@@ -35,6 +35,15 @@ export const userStore = defineStore('user', {
           reject(err)
         })
       })
+    },
+    LoginOut () {
+      return new Promise((resolve, reject) => {
+        this.userType = null
+        this.username = null
+        this.userId = null
+        this.token = null
+        resolve('loginOut')
+      })
     }
   }
 })

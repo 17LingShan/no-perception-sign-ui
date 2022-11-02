@@ -9,7 +9,6 @@ import '@/styles/global.scss'
 
 const app = createApp(App)
 const pinia = createPinia()
-
 app.use(router)
 app.use(Antd)
 app.use(pinia)

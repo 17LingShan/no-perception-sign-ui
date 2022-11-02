@@ -8,17 +8,8 @@ const router = createRouter({
   routes: constantRouterMap
 })
 
-//导航守卫
-const loginRoutePath = '/user/login'
-const defaultRoutePath = '/home'
-
-router.beforeEach((to, from, next) => {
-  const token = storage.get(TOKEN)
-  console.log(token)
-  if (to.path !== loginRoutePath && token === null) {
-    next({ name: 'login' })
-  }
-  next()
-})
+export function resetRouter () {
+  const newRouter = createRouter()
+}
 
 export default router

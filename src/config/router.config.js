@@ -3,20 +3,16 @@ import { UserLayout, BasicLayout } from '@/layouts'
 export const asyncRouterMap = [
   {
     path: '/',
-    redirect: '/home',
+    name: 'index',
+    component: BasicLayout,
     children: [
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/view/Home')
-      }
     ]
   }
 ]
 
 export const constantRouterMap = [
   {
-    path: '/',
+    path: '/user',
     component: UserLayout,
     redirect: '/user/login',
     children: [
@@ -33,11 +29,8 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/home',
-    name: 'home',
-    component: BasicLayout,
-    children: [
-
-    ]
+    path: '/index',
+    name: 'index',
+    component: BasicLayout
   }
 ]
