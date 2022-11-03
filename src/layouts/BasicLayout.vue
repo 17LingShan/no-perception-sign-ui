@@ -10,7 +10,7 @@ import router from '@/router'
 const menus = ref([])
 
 onMounted(() => {
-  console.log(1);
+
 })
 
 

@@ -27,16 +27,5 @@ export const constantRouterMap = [
         component: () => import('@/view/user/Register')
       }
     ]
-  },
-  {
-    path: '/index',
-    name: 'index',
-    component: BasicLayout,
-    children: [
-      {
-        path: '/cource',
-        name: 'cource',
-      }
-    ]
   }
 ]
