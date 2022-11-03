@@ -11,12 +11,8 @@ const defaultRoutePath = '/index'
 router.beforeEach((to, from, next) => {
 
   const piniaUser = userStore()
-  // const storageArr = new Map()
-  // storage.each((value, key) => {
-  //   storageArr.set(key, value)
-  // })
-  // console.log(storageArr);
-  // console.log('路由守卫');
+  const piniaPermisstion = permissionStore()
+
   if (storage.get(TOKEN)) {
     if (to.path === loginRoutePath) {
       next()
@@ -25,7 +21,13 @@ router.beforeEach((to, from, next) => {
         // 如果没有用户信息
         next({ path: loginRoutePath })
       } else {
-
+        piniaPermisstion.GenerateRoutes(1).then(() => {
+          resetRouter()
+          console.log(piniaPermisstion.addRouters)
+          piniaPermisstion.addRouters.forEach((item) => {
+            router.addRoute(item)
+          })
+        })
         next()
       }
     }

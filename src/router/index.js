@@ -1,6 +1,6 @@
 import storage from 'store'
 import { createRouter, createWebHistory } from 'vue-router'
-import { constantRouterMap, asyncRouterMap } from '@/config/router.config'
+import { constantRouterMap } from '@/config/router.config'
 import { TOKEN } from '@/store/mutation-types'
 
 const router = createRouter({
@@ -9,9 +9,12 @@ const router = createRouter({
 })
 
 export function resetRouter () {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher
   console.log('resetRouter');
+  const newRouter = createRouter({
+    history: createWebHistory(),
+    routes: constantRouterMap
+  })
+  router.matcher = newRouter.matcher
 }
 
 export default router

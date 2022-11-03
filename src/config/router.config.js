@@ -16,6 +16,27 @@ export const asyncRouterMap = [
             path: '/dashboard/workspace',
             name: 'workspace',
             component: import('@/view/dashboard/Workspace')
+          },
+          {
+            path: '/dashboard/dash_temp1',
+            name: 'dash_temp1',
+            children: [
+              {
+                path: '/dashboard'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: '/temp2',
+        name: 'temp2',
+        component: BasicLayout,
+        children: [
+          {
+            path: '/temp2/temp2_1',
+            name: 'temp2_1',
+            component: import('@/view/dashboard/Workspace')
           }
         ]
       }
