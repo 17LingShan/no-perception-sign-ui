@@ -1,4 +1,5 @@
 import storage from 'store'
+import { cloneDeep } from 'lodash'
 import { defineStore } from 'pinia'
 import { constantRouterMap, asyncRouterMap } from '@/config/router.config'
 
@@ -10,9 +11,9 @@ export const permissionStore = defineStore('permission', {
     }
   },
   actions: {
-    GenerateRoutes (route) {
+    GenerateRoutes (data) {
       return new Promise(reslove => {
-        console.log(route)
+        console.log(data)
       })
     }
   }

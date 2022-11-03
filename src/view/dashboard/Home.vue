@@ -1,7 +1,5 @@
 <template>
-  <pro-layout :menu="menus">
-
-  </pro-layout>
+  <div>home</div>
 </template>
 
 <script setup>

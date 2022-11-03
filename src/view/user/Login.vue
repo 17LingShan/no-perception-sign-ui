@@ -108,10 +108,8 @@ const login = () => {
     data.append('password', values.password)
     const loginType = tabs.activeKey
     await piniaUser.Login({ data, loginType }).then(res => {
-      console.log(piniaUser.username)
-      console.log(piniaUser.userType)
       message.success({ content: '登录成功！' })
-      router.push({ name: 'index' })
+      router.push({ path: '/' })
     }).catch((err) => {
       console.log(err)
       message.warn({ content: '登录失败！请检查账号密码是否正确！' })

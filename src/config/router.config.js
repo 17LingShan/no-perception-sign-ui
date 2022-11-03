@@ -1,11 +1,24 @@
 import { UserLayout, BasicLayout } from '@/layouts'
 
+
 export const asyncRouterMap = [
   {
     path: '/',
     name: 'index',
     component: BasicLayout,
+    redirect: '/dashboard/workplace',
     children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        children: [
+          {
+            path: '/dashboard/workspace',
+            name: 'workspace',
+            component: import('@/view/dashboard/Workspace')
+          }
+        ]
+      }
     ]
   }
 ]

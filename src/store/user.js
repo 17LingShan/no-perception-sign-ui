@@ -24,7 +24,7 @@ export const userStore = defineStore('user', {
           storage.set(USERTYPE, this.userType)
           storage.set(USERNAME, this.username)
           storage.set(USERID, this.userId)
-          storage.set(TOKEN, this, this.token)
+          storage.set(TOKEN, this.token)
           resolve(res)
         }).catch(err => {
           reject(err)
