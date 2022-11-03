@@ -12,14 +12,11 @@ export const permissionStore = defineStore('permission', {
     }
   },
   actions: {
-    GenerateRoutes (data) {
-      console.log(data)
+    GenerateRoutes () {
+      console.log()
       return new Promise(reslove => {
         console.log(asyncRouterMap)
         const routerMap = cloneDeep(asyncRouterMap)
-        const accessedRouters = filterAsyncRouter(routerMap)
-        this.addRouters = accessedRouters
-        this.routers = constantRouterMap.concat(accessedRouters)
         reslove()
       })
     }

@@ -2,7 +2,7 @@ import router, { resetRouter } from '@/router'
 import storage from 'store'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
-import { TOKEN, USERID, USERNAME, USERTYPE } from '@/store/mutation-types'
+import { TOKEN, USERID, USERNAME, USERTYPE, USERINFO } from '@/store/types'
 import { map } from 'lodash'
 
 const loginRoutePath = '/user/login'
@@ -17,7 +17,12 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (storage.get(TOKEN)) {
-      next()
+      if (storage.get(USERINFO)) {
+        piniaUser.GetInfo().then(() => {
+          console.log('finish')
+        })
+        next()
+      }
     } else {
       next({ name: 'login' })
     }

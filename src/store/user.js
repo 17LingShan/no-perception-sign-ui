@@ -1,7 +1,7 @@
 import storage from 'store'
 import { defineStore } from 'pinia'
 import { login, regiser } from '@/api/user'
-import { TOKEN, USERID, USERNAME, USERTYPE } from './mutation-types'
+import { TOKEN, USERID, USERNAME, USERTYPE, USERINFO } from './types'
 
 export const userStore = defineStore('user', {
   state: () => {
@@ -21,14 +21,24 @@ export const userStore = defineStore('user', {
           this.username = res.data.user_name
           this.userId = res.data.user_id
           this.token = res.data.token
-          storage.set(USERTYPE, this.userType)
-          storage.set(USERNAME, this.username)
-          storage.set(USERID, this.userId)
+          const userInfo = JSON.stringify({
+            [USERID]: this.userId,
+            [USERNAME]: this.username,
+            [USERTYPE]: this.userType
+          })
+          storage.set(USERINFO, userInfo)
           storage.set(TOKEN, this.token)
           resolve(res)
         }).catch(err => {
           reject(err)
         })
+      })
+    },
+    GetInfo () {
+      return new Promise(resolve => {
+        const userInfo = JSON.parse(storage.get(USERINFO))
+        console.log(userInfo)
+        resolve()
       })
     },
     Register (regiserInfo) {

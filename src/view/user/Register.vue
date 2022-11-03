@@ -134,7 +134,7 @@ import { userStore } from '@/store/user'
 import { useRouter } from 'vue-router'
 import { captcha } from '@/api/user'
 import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from '@ant-design/icons-vue'
 
 const piniaUser = userStore()
 const router = useRouter()

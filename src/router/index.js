@@ -1,7 +1,7 @@
 import storage from 'store'
 import { createRouter, createWebHistory } from 'vue-router'
 import { constantRouterMap } from '@/config/router.config'
-import { TOKEN } from '@/store/mutation-types'
+import { TOKEN } from '@/store/types'
 
 const router = createRouter({
   history: createWebHistory(),
