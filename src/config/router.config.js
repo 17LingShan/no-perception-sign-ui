@@ -16,15 +16,14 @@ export const asyncRouterMap = [
         path: '/dashboard',
         name: 'dashboard',
         component: RouteView,
-        meta: { title: 'dashboard' },
         children: [
           {
-            path: '/dashboard/workspace',
+            path: 'workspace',
             name: 'workspace',
             component: () => import('@/view/dashboard/Workspace')
           },
           {
-            path: '/dashboard/dash_temp1',
+            path: 'dash_temp1',
             name: 'dash_temp1',
             component: () => import('@/view/dashboard/Workspace')
           }
@@ -36,7 +35,7 @@ export const asyncRouterMap = [
         component: RouteView,
         children: [
           {
-            path: '/temp2/temp2_1',
+            path: 'temp2_1',
             name: 'temp2_1',
             component: () => import('@/view/dashboard/Workspace')
           }
@@ -48,22 +47,17 @@ export const asyncRouterMap = [
 
 export const constantRouterMap = [
   {
-    path: '/',
-    name: 'index',
-    component: BasicLayout
-  },
-  {
     path: '/user',
     component: UserLayout,
     redirect: '/user/login',
     children: [
       {
-        path: '/user/login',
+        path: 'login',
         name: 'login',
         component: () => import('@/view/user/Login')
       },
       {
-        path: '/user/register',
+        path: 'register',
         name: 'register',
         component: () => import('@/view/user/Register')
       }

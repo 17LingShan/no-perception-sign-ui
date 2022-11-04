@@ -17,14 +17,12 @@ export const userStore = defineStore('user', {
     Login (loginInfo) {
       return new Promise((resolve, reject) => {
         login(loginInfo).then(res => {
-          this.userType = loginInfo.loginType
-          this.username = res.data.user_name
-          this.userId = res.data.user_id
+
           this.token = res.data.token
           const userInfo = JSON.stringify({
-            [USERID]: this.userId,
-            [USERNAME]: this.username,
-            [USERTYPE]: this.userType
+            [USERID]: res.data.user_id,
+            [USERNAME]: res.data.user_name,
+            [USERTYPE]: loginInfo.loginType
           })
           storage.set(USERINFO, userInfo)
           storage.set(TOKEN, this.token)
@@ -37,7 +35,10 @@ export const userStore = defineStore('user', {
     GetInfo () {
       return new Promise(resolve => {
         const userInfo = JSON.parse(storage.get(USERINFO))
-        console.log(userInfo)
+        // console.log(userInfo)
+        this.userType = userInfo.loginType
+        this.username = userInfo.username
+        this.userId = userInfo.userId
         resolve()
       })
     },

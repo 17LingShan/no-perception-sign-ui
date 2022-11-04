@@ -9,7 +9,7 @@ const router = createRouter({
 })
 
 export function resetRouter () {
-  console.log('resetRouter');
+  console.log('resetRouter')
   const newRouter = createRouter({
     history: createWebHistory(),
     routes: constantRouterMap

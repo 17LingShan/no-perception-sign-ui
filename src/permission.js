@@ -3,7 +3,6 @@ import storage from 'store'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
 import { TOKEN, USERID, USERNAME, USERTYPE, USERINFO } from '@/store/types'
-import { map } from 'lodash'
 
 const loginRoutePath = '/user/login'
 const defaultRoutePath = '/index'
@@ -17,12 +16,18 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (storage.get(TOKEN)) {
-      if (storage.get(USERINFO)) {
+      if (!piniaUser.userId || !piniaUser.username || !piniaUser.userType) {
         piniaUser.GetInfo().then(() => {
-          console.log('finish')
+          resetRouter()
+          piniaPermisstion.GenerateRoutes().then(() => {
+            piniaPermisstion.asyncRouters.forEach(item => {
+              router.addRoute(item)
+              console.log(router);
+            })
+          })
         })
-        next()
       }
+      next()
     } else {
       next({ name: 'login' })
     }
