@@ -33,11 +33,3 @@ export function captcha (parms) {
     data: parms.data
   })
 }
-
-export function temp_login (parms) {
-  return requestService({
-    url: api.temp,
-    method: 'post',
-    data: parms.data
-  })
-}
