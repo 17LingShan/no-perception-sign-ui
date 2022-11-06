@@ -10,34 +10,20 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
+    meta: { title: 'first' },
     redirect: '/dashboard/workplace',
     children: [
       {
         path: '/dashboard',
         name: 'dashboard',
         component: RouteView,
+        meta: { title: 'dashboard', keepAlive: true },
         children: [
           {
-            path: 'workspace',
-            name: 'workspace',
-            component: () => import('@/view/dashboard/Workspace')
-          },
-          {
-            path: 'dash_temp1',
-            name: 'dash_temp1',
-            component: () => import('@/view/dashboard/Workspace')
-          }
-        ]
-      },
-      {
-        path: '/temp2',
-        name: 'temp2',
-        component: RouteView,
-        children: [
-          {
-            path: 'temp2_1',
-            name: 'temp2_1',
-            component: () => import('@/view/dashboard/Workspace')
+            path: 'workplace',
+            name: 'workplace',
+            component: () => import('@/views/dashboard/Workplace'),
+            meta: { title: 'workplace' }
           }
         ]
       }

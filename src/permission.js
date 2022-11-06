@@ -1,5 +1,6 @@
 import router, { resetRouter } from '@/router'
 import storage from 'store'
+import { toRaw } from 'vue'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
 import { TOKEN, USERID, USERNAME, USERTYPE, USERINFO } from '@/store/types'
@@ -20,9 +21,9 @@ router.beforeEach((to, from, next) => {
         piniaUser.GetInfo().then(() => {
           resetRouter()
           piniaPermisstion.GenerateRoutes().then(() => {
-            piniaPermisstion.asyncRouters.forEach(item => {
+            toRaw(piniaPermisstion.asyncRouters).forEach((item) => {
+              console.log(item)
               router.addRoute(item)
-              console.log(router);
             })
           })
         })

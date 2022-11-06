@@ -1,5 +1,5 @@
 <template>
-<div>workspace</div>
+<div>workplace</div>
 </template>
 <script setup>
 

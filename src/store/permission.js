@@ -1,7 +1,7 @@
-import storage from 'store'
 import { cloneDeep } from 'lodash'
 import { defineStore } from 'pinia'
 import { constantRouterMap, asyncRouterMap } from '@/config/router.config'
+import router from '@/router'
 
 function filterAsyncRouter (routerMap) {
   const accessedRouters = routerMap.filter(route => {
@@ -36,6 +36,8 @@ export const permissionStore = defineStore('permission', {
         const accessedRouters = filterAsyncRouter(routerMap)
         this.addRouters = accessedRouters
         this.routers = constantRouterMap.concat(routerMap)
+        router.addRoute(accessedRouters)
+        console.log(router)
         reslove()
       })
     }
