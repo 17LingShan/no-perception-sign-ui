@@ -23,11 +23,6 @@ export const permissionStore = defineStore('permission', {
       addRouters: []
     }
   },
-  getters: {
-    asyncRouters (state) {
-      return state.addRouters
-    }
-  },
   actions: {
     GenerateRoutes () {
       console.log()

@@ -22,7 +22,6 @@ router.beforeEach((to, from, next) => {
           resetRouter()
           piniaPermisstion.GenerateRoutes().then(() => {
             toRaw(piniaPermisstion.asyncRouters).forEach((item) => {
-              console.log(item)
               router.addRoute(item)
             })
           })

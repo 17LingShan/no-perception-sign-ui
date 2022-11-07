@@ -22,7 +22,7 @@ export const asyncRouterMap = [
           {
             path: 'workplace',
             name: 'workplace',
-            component: () => import('@/views/dashboard/Workplace'),
+            component: () => import('@/view/dashboard/Workplace'),
             meta: { title: 'workplace' }
           }
         ]
