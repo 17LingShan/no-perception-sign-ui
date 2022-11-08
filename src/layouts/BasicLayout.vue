@@ -1,16 +1,30 @@
 <template>
-  <pro-layout>
+  <pro-layout :menu="layout.menus">
+    <template v-slot:menuHeaderRender>
+      <div>
+        <img src="@/assets/vue.svg" alt=""/>
+        <h1>hhhh</h1>
+      </div>
+
+    </template>
   </pro-layout>
 
 </template>
-<script>
+<script setup>
 import { onMounted, reactive, ref, toRaw } from 'vue'
 import { permissionStore } from '@/store/permission'
 
-onMounted(()=> {
+const piniaPermission = permissionStore()
+const layout = reactive({
+  menus : null
 })
 
-// const menus = reactive({})
+onMounted(()=> {
+  console.log(toRaw(piniaPermission.addRouters))
+  layout.menus = toRaw(piniaPermission.addRouters)
+  console.log(layout.menus)
+})
+
 
 
 </script>
