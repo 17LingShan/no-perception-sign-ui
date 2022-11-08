@@ -9,8 +9,7 @@ const loginRoutePath = '/user/login'
 const defaultRoutePath = '/index'
 
 router.beforeEach((to, from, next) => {
-  console.log(from)
-  console.log(to)
+
 
   const piniaUser = userStore()
   const piniaPermisstion = permissionStore()
@@ -22,13 +21,11 @@ router.beforeEach((to, from, next) => {
       if (!piniaUser.userId || !piniaUser.username || !piniaUser.userType) {
         piniaUser.GetInfo().then(async () => {
           resetRouter()
-
           await piniaPermisstion.GenerateRoutes().then(() => {
             toRaw(piniaPermisstion.addRouters).forEach((item) => {
               router.addRoute(item)
             })
 
-            console.log(router.getRoutes())
             next({ ...to })
           })
         })
