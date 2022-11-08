@@ -11,6 +11,7 @@
 
 </template>
 <script setup>
+// import router from '@/router'
 import { onMounted, reactive, ref, toRaw } from 'vue'
 import { permissionStore } from '@/store/permission'
 
@@ -20,9 +21,8 @@ const layout = reactive({
 })
 
 onMounted(()=> {
-  console.log(toRaw(piniaPermission.addRouters))
-  layout.menus = toRaw(piniaPermission.addRouters)
-  console.log(layout.menus)
+  const routes = toRaw(piniaPermission.addRouters).find(item => item.path === '/')
+  console.log(routes)
 })
 
 
