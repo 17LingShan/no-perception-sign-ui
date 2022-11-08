@@ -36,7 +36,7 @@ export const userStore = defineStore('user', {
       return new Promise(resolve => {
         const userInfo = JSON.parse(storage.get(USERINFO))
         // console.log(userInfo)
-        this.userType = userInfo.loginType
+        this.userType = userInfo.userType
         this.username = userInfo.username
         this.userId = userInfo.userId
         resolve()

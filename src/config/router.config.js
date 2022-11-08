@@ -14,7 +14,7 @@ export const asyncRouterMap = [
     redirect: '/dashboard/workplace',
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         name: 'dashboard',
         component: RouteView,
         meta: { title: 'dashboard', keepAlive: true },

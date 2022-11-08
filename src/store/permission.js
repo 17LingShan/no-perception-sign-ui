@@ -31,8 +31,6 @@ export const permissionStore = defineStore('permission', {
         const accessedRouters = filterAsyncRouter(routerMap)
         this.addRouters = accessedRouters
         this.routers = constantRouterMap.concat(routerMap)
-        router.addRoute(accessedRouters)
-        console.log(router)
         reslove()
       })
     }
