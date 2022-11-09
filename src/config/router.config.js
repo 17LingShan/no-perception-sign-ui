@@ -1,6 +1,4 @@
 import { UserLayout, BasicLayout } from '@/layouts'
-// import BasicLayout from '@/layouts/BasicLayout'
-// import UserLayout from '@/layouts/UserLayout'
 
 
 const RouteView = {
