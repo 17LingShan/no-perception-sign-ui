@@ -1,4 +1,7 @@
 import { UserLayout, BasicLayout } from '@/layouts'
+// import BasicLayout from '@/layouts/BasicLayout'
+// import UserLayout from '@/layouts/UserLayout'
+
 
 const RouteView = {
   name: 'RouteView',
@@ -22,7 +25,7 @@ export const asyncRouterMap = [
           {
             path: 'workplace',
             name: 'workplace',
-            component: () => import('@/view/dashboard/Workplace'),
+            component: () => import('@/views/dashboard/workplace'),
             meta: { title: 'workplace' }
           }
         ]
@@ -40,12 +43,12 @@ export const constantRouterMap = [
       {
         path: 'login',
         name: 'login',
-        component: () => import('@/view/user/Login')
+        component: () => import('@/views/user/login')
       },
       {
         path: 'register',
         name: 'register',
-        component: () => import('@/view/user/Register')
+        component: () => import('@/views/user/legister')
       }
     ]
   }

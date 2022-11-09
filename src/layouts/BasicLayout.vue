@@ -1,34 +1,44 @@
 <template>
-  <pro-layout :menu="layout.menus">
-    <template v-slot:menuHeaderRender>
-      <div>
-        <img src="@/assets/vue.svg" alt=""/>
-        <h1>hhhh</h1>
+  <a-layout>
+    <a-layout-sider>
+      <div class="logo">
+        <h1>vue</h1>
       </div>
-
-    </template>
-  </pro-layout>
-
+    </a-layout-sider>
+    <a-layout>
+      <a-layout-header>Header</a-layout-header>
+      <a-layout-content>Content</a-layout-content>
+      <a-layout-footer>Footer</a-layout-footer>
+    </a-layout>
+  </a-layout>
 </template>
+
 <script setup>
-// import router from '@/router'
 import { onMounted, reactive, ref, toRaw } from 'vue'
 import { permissionStore } from '@/store/permission'
+import defaultSettings from '@/config/defaultStyleSetting'
 
 const piniaPermission = permissionStore()
-const layout = reactive({
-  menus : null
+
+
+
+onMounted(() => {
+
 })
-
-onMounted(()=> {
-  const routes = toRaw(piniaPermission.addRouters).find(item => item.path === '/')
-  console.log(routes)
-})
-
-
 
 </script>
 
 <style lang="scss" scoped>
+.ant-layout {
+  height: 100%;
 
+  .logo {
+    height: 64px;
+    background: #001529;
+  }
+
+  .ant-layout-header {
+    background: #ffff;
+  }
+}
 </style>

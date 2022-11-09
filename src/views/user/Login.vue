@@ -124,10 +124,10 @@ const checkedChange = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-:global(.ant-tabs-tab) {
+<style lang="scss">
+.ant-tabs-tab {
   min-width: 100px;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
 }
 </style>

@@ -30,6 +30,7 @@
 
     .user-layout-content {
       padding: 32px 0 24px;
+
       .top {
         text-align: center;
 
