@@ -17,7 +17,6 @@ export const userStore = defineStore('user', {
     Login (loginInfo) {
       return new Promise((resolve, reject) => {
         login(loginInfo).then(res => {
-
           this.token = res.data.token
           const userInfo = JSON.stringify({
             [USERID]: res.data.user_id,

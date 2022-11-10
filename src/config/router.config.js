@@ -6,25 +6,52 @@ const RouteView = {
   render: h => h('router-view')
 }
 
-export const asyncRouterMap = [
+export const asyncTeacherMap = [
   {
     path: '/',
     name: 'index',
     component: BasicLayout,
     meta: { title: 'first' },
-    redirect: '/dashboard/workplace',
+    redirect: '/teacher/attendance',
     children: [
       {
-        path: 'dashboard',
-        name: 'dashboard',
+        path: 'teacher',
+        name: 'teacher',
         component: RouteView,
         meta: { title: 'dashboard', keepAlive: true },
         children: [
           {
-            path: 'workplace',
-            name: 'workplace',
-            component: () => import('@/views/dashboard/workplace'),
-            meta: { title: 'workplace' }
+            path: 'attendance',
+            name: 'attendance',
+            component: () => import('@/views/teacher/Attendance'),
+            meta: { title: 'Attendance' }
+          }
+        ]
+      }
+    ]
+  }
+]
+
+
+export const asyncStudentMap = [
+  {
+    path: '/',
+    name: 'index',
+    component: BasicLayout,
+    meta: { title: 'first' },
+    redirect: '/student/attendance',
+    children: [
+      {
+        path: 'student',
+        name: 'student',
+        component: RouteView,
+        meta: { title: 'dashboard', keepAlive: true },
+        children: [
+          {
+            path: 'attendance',
+            name: 'attendance',
+            component: () => import('@/views/student/Attendance'),
+            meta: { title: 'Attendance' }
           }
         ]
       }
