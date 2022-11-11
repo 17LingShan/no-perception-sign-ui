@@ -50,13 +50,13 @@ export const userStore = defineStore('user', {
         })
       })
     },
-    LoginOut () {
-      return new Promise((resolve, reject) => {
+    Logout () {
+      return new Promise(resolve => {
+        storage.clearAll()
         this.userType = null
         this.username = null
         this.userId = null
         this.token = null
-        resolve('loginOut')
       })
     }
   }

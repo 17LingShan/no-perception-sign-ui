@@ -1,11 +1,11 @@
+// import { h } from 'vue'
 import { UserLayout, BasicLayout } from '@/layouts'
-import { h } from 'vue'
 
 
-const RouteView = {
-  name: 'RouteView',
-  render: h => h('router-view')
-}
+// const RouteView = {
+//   name: 'RouteView',
+//   render: h => h('router-view')
+// }
 
 export const asyncTeacherMap = [
   {
@@ -16,16 +16,16 @@ export const asyncTeacherMap = [
     redirect: '/teacher/attendance',
     children: [
       {
-        path: 'teacher',
+        path: '/teacher',
         name: 'teacher',
-        component: RouteView,
-        meta: { title: 'dashboard', keepAlive: true },
+        // component: RouteView,
+        meta: { title: '日常', keepAlive: true },
         children: [
           {
-            path: 'attendance',
+            path: '/teacher/attendance',
             name: 'attendance',
             component: () => import('@/views/teacher/Attendance'),
-            meta: { title: 'Attendance' }
+            meta: { title: '考勤' }
           }
         ]
       }
@@ -43,36 +43,31 @@ export const asyncStudentMap = [
     redirect: '/student/attendance',
     children: [
       {
-        path: 'student',
+        path: '/student',
         name: 'student',
-        component: RouteView,
-        meta: { title: 'dashboard', keepAlive: true, icon: 'DashboardOutlined' },
+        // component: RouteView,
+        redirect: '/student/attendance',
+        meta: { title: '日常', keepAlive: true, icon: 'DashboardOutlined' },
         children: [
           {
-            path: 'attendance',
+            path: '/student/attendance',
             name: 'attendance',
             component: () => import('@/views/student/Attendance'),
-            meta: { title: 'Attendance' }
+            meta: { title: '考勤' }
           }
         ]
       },
       {
-        path: 'temp1',
+        path: '/temp1',
         name: 'temp1',
-        component: RouteView,
+        // component: RouteView,
         meta: { title: 'temp1', keepAlive: true, icon: 'MenuUnfoldOutlined' },
         children: [
           {
-            path: 'temp1-1',
-            name: 'temp1-1',
+            path: '/temp1/temp2',
+            name: 'temp2',
             component: () => import('@/views/student/Attendance'),
             meta: { title: 'temp1-1' }
-          },
-          {
-            path: 'temp1-2',
-            name: 'temp1-2',
-            component: () => import('@/views/student/Attendance'),
-            meta: { title: 'temp1-2' }
           }
         ]
       }

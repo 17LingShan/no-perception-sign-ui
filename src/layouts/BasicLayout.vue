@@ -13,7 +13,9 @@
             <span>{{ item.meta.title }}</span>
           </template>
           <a-menu-item v-for="kid_item in item.children" :key="kid_item.name">
-            {{ kid_item.meta.title }}
+            <router-link :to="kid_item.path">
+              {{ kid_item.meta.title }}
+            </router-link>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
@@ -27,12 +29,12 @@
 
         <div class="header-right">
           <span>
-            <RightContent :username="piniaUser.username" />
+            <RightContent :username="piniaUser.username" @logout="logout" />
           </span>
         </div>
       </a-layout-header>
       <a-layout-content>
-
+        <router-view />
       </a-layout-content>
       <a-layout-footer>Footer</a-layout-footer>
     </a-layout>
@@ -43,22 +45,19 @@
 import { onMounted, reactive, toRaw } from 'vue'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
+import { useRouter } from 'vue-router'
+import { message } from 'ant-design-vue'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 
 import RightContent from '@/components/GlobalHeader/RightContent'
 
 const piniaUser = userStore()
 const piniaPermission = permissionStore()
-
-
+const router = useRouter()
 
 const layout = reactive({
   menus: null,
-  collapsed: false,
-  style: {
-    width: '400px',
-    flex: '0 0 400px'
-  }
+  collapsed: false
 })
 
 onMounted(() => {
@@ -67,6 +66,13 @@ onMounted(() => {
 })
 const changeCollapsed = () => {
   layout.collapsed = !layout.collapsed
+}
+
+const logout = () => {
+  piniaUser.Logout().then(() => {
+    message.success({ content: '退出登录！' })
+    router.push({ name: 'login' })
+  })
 }
 
 </script>
@@ -129,6 +135,10 @@ const changeCollapsed = () => {
     }
 
 
+  }
+
+  .ant-layout-content {
+    padding: 50px;
   }
 }
 </style>
