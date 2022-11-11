@@ -34,7 +34,10 @@
         </div>
       </a-layout-header>
       <a-layout-content>
-        <router-view />
+        <a-page-header :title="route.meta.title" style="background-color: #ffffff; padding: 24px" />
+        <a-card>
+          <router-view />
+        </a-card>
       </a-layout-content>
       <a-layout-footer>Footer</a-layout-footer>
     </a-layout>
@@ -45,15 +48,15 @@
 import { onMounted, reactive, toRaw } from 'vue'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
-
 import RightContent from '@/components/GlobalHeader/RightContent'
 
 const piniaUser = userStore()
 const piniaPermission = permissionStore()
 const router = useRouter()
+const route = useRoute()
 
 const layout = reactive({
   menus: null,
@@ -137,8 +140,6 @@ const logout = () => {
 
   }
 
-  .ant-layout-content {
-    padding: 50px;
-  }
+
 }
 </style>

@@ -5,8 +5,7 @@ const api = {
   teacherLogin: '/teacher/teacher_login',
   studentRegister: '/user/student_register',
   teacherRegister: '/teacher/teacher_register',
-  captcha: '/user/captcha',
-  temp: '/user/student_id_register'
+  captcha: '/user/captcha'
 }
 
 //loginType = student：学生，loginType = teacher：教师

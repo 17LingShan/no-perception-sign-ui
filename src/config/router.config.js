@@ -58,16 +58,16 @@ export const asyncStudentMap = [
         ]
       },
       {
-        path: '/temp1',
-        name: 'temp1',
+        path: '/course',
+        name: 'course',
         // component: RouteView,
-        meta: { title: 'temp1', keepAlive: true, icon: 'MenuUnfoldOutlined' },
+        meta: { title: '课程', keepAlive: true, icon: 'MenuUnfoldOutlined' },
         children: [
           {
-            path: '/temp1/temp2',
-            name: 'temp2',
-            component: () => import('@/views/student/Attendance'),
-            meta: { title: 'temp1-1' }
+            path: '/course/modify',
+            name: 'modify',
+            component: () => import('@/views/student/Modify'),
+            meta: { title: '查看课程' }
           }
         ]
       }

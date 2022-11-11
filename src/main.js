@@ -4,8 +4,8 @@ import App from './App.vue'
 import router from '@/router'
 import Antd from 'ant-design-vue'
 import './permission' //路由守卫
-import 'ant-design-vue/dist/antd.css'
 import '@/styles/global.scss'
+import 'ant-design-vue/dist/antd.css'
 import * as antIcons from '@ant-design/icons-vue'
 
 const app = createApp(App)

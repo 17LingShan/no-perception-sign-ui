@@ -23,7 +23,6 @@ router.beforeEach((to, from, next) => {
             toRaw(piniaPermisstion.addRouters).forEach((item) => {
               router.addRoute(item)
             })
-            console.log(router.getRoutes())
             next({ ...to, replace: true })
           })
         })
