@@ -6,7 +6,10 @@
       </div>
       <a-menu mode="inline" theme="dark">
         <a-sub-menu v-for="item in layout.menus" :key="item.name">
-          <template #title>
+          <template #icon>
+            <component :is="$antIcons[item.meta.icon]" />
+          </template>
+          <template v-if="!layout.collapsed" #title>
             <span>{{ item.meta.title }}</span>
           </template>
           <a-menu-item v-for="kid_item in item.children" :key="kid_item.name">
@@ -27,7 +30,6 @@
             <RightContent :username="piniaUser.username" />
           </span>
         </div>
-        <div class=""></div>
       </a-layout-header>
       <a-layout-content>
 
@@ -47,6 +49,8 @@ import RightContent from '@/components/GlobalHeader/RightContent'
 
 const piniaUser = userStore()
 const piniaPermission = permissionStore()
+
+
 
 const layout = reactive({
   menus: null,

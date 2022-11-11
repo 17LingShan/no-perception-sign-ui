@@ -1,4 +1,5 @@
 import { UserLayout, BasicLayout } from '@/layouts'
+import { h } from 'vue'
 
 
 const RouteView = {
@@ -45,13 +46,33 @@ export const asyncStudentMap = [
         path: 'student',
         name: 'student',
         component: RouteView,
-        meta: { title: 'dashboard', keepAlive: true },
+        meta: { title: 'dashboard', keepAlive: true, icon: 'DashboardOutlined' },
         children: [
           {
             path: 'attendance',
             name: 'attendance',
             component: () => import('@/views/student/Attendance'),
             meta: { title: 'Attendance' }
+          }
+        ]
+      },
+      {
+        path: 'temp1',
+        name: 'temp1',
+        component: RouteView,
+        meta: { title: 'temp1', keepAlive: true, icon: 'MenuUnfoldOutlined' },
+        children: [
+          {
+            path: 'temp1-1',
+            name: 'temp1-1',
+            component: () => import('@/views/student/Attendance'),
+            meta: { title: 'temp1-1' }
+          },
+          {
+            path: 'temp1-2',
+            name: 'temp1-2',
+            component: () => import('@/views/student/Attendance'),
+            meta: { title: 'temp1-2' }
           }
         ]
       }
