@@ -1,17 +1,16 @@
 import { requestService } from '@/utils/request'
 
 const api = {
-  attendance: '/user/inquire_attendance',
+  inquireAttendance: '/user/inquire_attendance',
   joinCourse: '/user/join_course',
   quitCourse: '/user/quit_course',
   inquireJoinCourse: '/user/inquire_joincourse'
 }
 
-export function attendance (parms) {
+export function inquireAttendance () {
   return requestService({
-    url: api.attendance,
-    method: 'get',
-    data: parms
+    url: api.inquireAttendance,
+    method: 'post'
   })
 }
 
