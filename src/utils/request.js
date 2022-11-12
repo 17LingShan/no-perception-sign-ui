@@ -1,6 +1,8 @@
 import axios from 'axios'
 import storage from 'store'
 import { networkConfig } from '@/config/network.config'
+import { useRouter } from 'vue-router'
+import { userStore } from '@/store/user'
 import { TOKEN, AUTHORIZATION } from '@/store/types'
 
 // 创建axios实例
@@ -26,6 +28,14 @@ export function requestService (config) {
   service.interceptors.response.use(res => {
     return res
   }, (err) => {
+    if (err.code === 'ERR_BAD_RESPONSE') {
+      const piniaUser = userStore()
+      const router = useRouter()
+      piniaUser.Logout().then(() => {
+        router.push({ name: 'login' })
+      })
+
+    }
     return Promise.reject(err)
   })
 

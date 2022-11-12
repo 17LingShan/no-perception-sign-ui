@@ -35,9 +35,9 @@
       </a-layout-header>
       <a-layout-content>
         <a-page-header :title="route.meta.title" style="background-color: #ffffff; padding: 24px" />
-        <a-card>
+        <div class="page-container">
           <router-view />
-        </a-card>
+        </div>
       </a-layout-content>
       <a-layout-footer>Footer</a-layout-footer>
     </a-layout>
@@ -137,9 +137,10 @@ const logout = () => {
       background: #f9f9f9;
     }
 
-
   }
 
-
+  .page-container {
+    padding: 50px;
+  }
 }
 </style>
