@@ -47,13 +47,13 @@ export const asyncStudentMap = [
         name: 'student',
         // component: RouteView,
         redirect: '/student/attendance',
-        meta: { title: '日常', keepAlive: true, icon: 'DashboardOutlined' },
+        meta: { title: '日常', keepAlive: true, icon: 'CalendarOutlined' },
         children: [
           {
             path: '/student/attendance',
             name: 'attendance',
             component: () => import('@/views/student/Attendance'),
-            meta: { title: '考勤' }
+            meta: { title: '查看考勤' }
           }
         ]
       },
@@ -61,7 +61,7 @@ export const asyncStudentMap = [
         path: '/course',
         name: 'course',
         // component: RouteView,
-        meta: { title: '课程', keepAlive: true, icon: 'MenuUnfoldOutlined' },
+        meta: { title: '课程', keepAlive: true, icon: 'BookOutlined' },
         children: [
           {
             path: '/course/modify',

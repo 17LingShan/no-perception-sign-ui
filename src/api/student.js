@@ -13,6 +13,12 @@ export function inquireAttendance () {
     method: 'post'
   })
 }
+export function inquireJoinCourse () {
+  return requestService({
+    url: api.inquireJoinCourse,
+    method: 'post'
+  })
+}
 
 export function joinCourse (parms) {
   return requestService({
@@ -22,9 +28,11 @@ export function joinCourse (parms) {
   })
 }
 
-export function inquireJoinCourse () {
+export function quitCourse (parms) {
+  console.log(parms)
   return requestService({
-    url: api.inquireJoinCourse,
-    method: 'post'
+    url: api.quitCourse,
+    method: 'post',
+    data: parms
   })
 }
