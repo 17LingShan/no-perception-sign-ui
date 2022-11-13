@@ -35,8 +35,6 @@ import AddCourseModal from './components/AddCourseModal'
 
 const piniaUser = userStore()
 
-const searchForm = ref()
-const searchInfo = reactive({})
 const course = reactive({
   data: null,
   loading: false,
