@@ -3,9 +3,7 @@
 
     <a-tabs tabPosition="top" v-model:activeKey="tabs.activeKey" centered>
       <a-tab-pane key="student" tab="学生登录" />
-
       <a-tab-pane key="teacher" tab="教师登录" />
-
     </a-tabs>
     <a-form ref="userForm" :model="loginInfo">
       <a-form-item name="email" :rules="[{ required: true, message: 'Please input your username!' }]">

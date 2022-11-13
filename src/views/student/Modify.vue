@@ -5,7 +5,7 @@
         <a-button type="primary" @click="() => addModal.visiable = true">添加课程</a-button>
       </a-col>
       <a-col :offset="1">
-        <a-button type="primary">刷新</a-button>
+        <a-button type="primary" @click="getJoinCourse">刷新</a-button>
       </a-col>
     </a-row>
     <a-row style="margin-top: 50px;">
@@ -42,6 +42,13 @@ const course = reactive({
   loading: false,
   columns: [
     {
+      title: '课程代码',
+      dataIndex: 'course_id',
+      key: 'course_id',
+      align: 'center',
+      width: '20%'
+    },
+    {
       title: '课程名称',
       dataIndex: 'course_name',
       key: 'course_name',
@@ -68,30 +75,37 @@ const getJoinCourse = () => {
   course.loading = true
   inquireJoinCourse().then(res => {
     course.data = res.data.message
+    console.log(res.data)
     setTimeout(() => course.loading = false, 500)
   })
 }
 
-const exitCourse = (record) => {
+const exitCourse = async (record) => {
   course.loading = true
   const parms = {
     student_id: piniaUser.userId,
     course_id: record.course_id
   }
-  quitCourse(parms).then(res => {
+  await quitCourse(parms).then(res => {
     console.log(res)
-    res.data.code === 200 ? message.success({ content: res.message }) : message.error({ content: '退出课程失败！' })
+    res.data.code === 200 ? message.success({ content: '退出课程成功！' }) : message.error({ content: '退出课程失败！' })
     getJoinCourse()
   }).catch((err) => {
     console.log(err)
+    message.error({ content: '退出课程失败！' })
   })
-  setTimeout(() => course.loading = false, 500)
+  setTimeout(() => {
+    course.loading = false
+    getJoinCourse()
+  }, 500)
 }
 
 const closeModal = () => {
   addModal.visiable = false
-
+  getJoinCourse()
 }
+
+
 </script>
 
 <style lang="scss" scoped>
