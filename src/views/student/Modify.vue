@@ -1,6 +1,14 @@
 <template>
   <a-card>
     <a-row>
+      <a-col>
+        <a-button type="primary" @click="() => addModal.visiable = true">添加课程</a-button>
+      </a-col>
+      <a-col :offset="1">
+        <a-button type="primary">刷新</a-button>
+      </a-col>
+    </a-row>
+    <a-row style="margin-top: 50px;">
       <a-col :span="24">
         <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
           <template #bodyCell="{ column, record }">
@@ -14,6 +22,8 @@
       </a-col>
     </a-row>
   </a-card>
+  <AddCourseModal :visible="addModal.visiable" @close="closeModal" />
+
 </template>
 
 <script setup>
@@ -21,6 +31,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { userStore } from '@/store/user'
 import { inquireJoinCourse, quitCourse } from '@/api/student'
 import { message } from 'ant-design-vue';
+import AddCourseModal from './components/AddCourseModal'
 
 const piniaUser = userStore()
 
@@ -45,6 +56,10 @@ const course = reactive({
   ]
 })
 
+const addModal = reactive({
+  visiable: false
+})
+
 onMounted(() => {
   getJoinCourse()
 })
@@ -63,10 +78,9 @@ const exitCourse = (record) => {
     student_id: piniaUser.userId,
     course_id: record.course_id
   }
-  console.log(JSON.stringify(parms))
-  quitCourse(JSON.stringify(parms)).then(res => {
+  quitCourse(parms).then(res => {
     console.log(res)
-    res.code === 200 ? message.success({ content: res.message }) : message.error({ content: '退出课程失败！' })
+    res.data.code === 200 ? message.success({ content: res.message }) : message.error({ content: '退出课程失败！' })
     getJoinCourse()
   }).catch((err) => {
     console.log(err)
@@ -74,6 +88,10 @@ const exitCourse = (record) => {
   setTimeout(() => course.loading = false, 500)
 }
 
+const closeModal = () => {
+  addModal.visiable = false
+
+}
 </script>
 
 <style lang="scss" scoped>

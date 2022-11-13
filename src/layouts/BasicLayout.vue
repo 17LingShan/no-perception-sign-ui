@@ -2,7 +2,7 @@
   <a-layout>
     <a-layout-sider :collapsed="layout.collapsed" width="15%">
       <div class="logo">
-        <h1>Mountain</h1>
+        <h1>vue</h1>
       </div>
       <a-menu mode="inline" theme="dark">
         <a-sub-menu v-for="item in layout.menus" :key="item.name">

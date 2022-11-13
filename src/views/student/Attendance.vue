@@ -1,6 +1,5 @@
 <template>
   <a-card>
-
     <a-row>
       <a-col :span="24">
         <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
@@ -12,8 +11,9 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 import moment from 'moment'
-import { inquireAttendance, inquireJoinCourse } from '@/api/student'
+import { inquireAttendance } from '@/api/student'
 import { message } from 'ant-design-vue';
+
 
 const course = reactive({
   data: null,

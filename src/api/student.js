@@ -29,7 +29,6 @@ export function joinCourse (parms) {
 }
 
 export function quitCourse (parms) {
-  console.log(parms)
   return requestService({
     url: api.quitCourse,
     method: 'post',
