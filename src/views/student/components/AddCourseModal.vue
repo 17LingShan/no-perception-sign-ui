@@ -40,11 +40,10 @@ const addCourse = async () => {
     }
 
     joinCourse(parms).then(res => {
-      console.log(res)
       res.data.code === 200 ?
         message.success({ content: '加入成功' })
         :
-        message.error({ content: '加入失败！' })
+        message.error({ content: res.data.message })
     })
   }).catch(err => {
     message.error({ content: '加入失败！' })
@@ -57,6 +56,6 @@ const addCourse = async () => {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>

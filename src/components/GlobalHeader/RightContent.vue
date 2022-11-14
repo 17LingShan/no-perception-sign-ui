@@ -20,12 +20,10 @@
 </template>
 
 <script setup>
-import { LogoutOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps({
   username: String
 })
-
 
 </script>
 

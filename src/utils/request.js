@@ -28,16 +28,13 @@ export function requestService (config) {
   service.interceptors.response.use(res => {
     return res
   }, (err) => {
-    if (err.code === 'ERR_BAD_RESPONSE') {
-      const piniaUser = userStore()
-      const router = useRouter()
-      piniaUser.Logout().then(() => {
-        router.push({ name: 'login' })
-      })
-
-    }
+    const piniaUser = userStore()
+    const router = useRouter()
+    console.log(1)
+    piniaUser.Logout().then(() => {
+      router.push({ path: '/user/login' })
+    })
     return Promise.reject(err)
   })
-
   return service(config)
 }

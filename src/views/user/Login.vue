@@ -66,14 +66,19 @@ const login = () => {
     data.append('password', values.password)
     const loginType = tabs.activeKey
     await piniaUser.Login({ data, loginType }).then(res => {
-      message.success({ content: '登录成功！' })
-      router.push({ path: '/' })
+      if (res.data.code === 200) {
+        message.success({ content: '登录成功！' })
+        router.push({ path: '/' })
+      } else {
+        message.warn({ content: '登录失败！请检查账号密码是否正确！' })
+      }
     }).catch((err) => {
       console.log(err)
       message.warn({ content: '登录失败！请检查账号密码是否正确！' })
     })
     userForm.value.resetFields()
   }).catch(err => {
+    message.warn({ content: '登录失败！请检查账号密码是否正确！' })
   })
 }
 

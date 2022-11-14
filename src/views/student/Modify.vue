@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { userStore } from '@/store/user'
 import { inquireJoinCourse, quitCourse } from '@/api/student'
 import { message } from 'ant-design-vue';
@@ -73,7 +73,6 @@ const getJoinCourse = () => {
   course.loading = true
   inquireJoinCourse().then(res => {
     course.data = res.data.message
-    console.log(res.data)
     setTimeout(() => course.loading = false, 500)
   })
 }

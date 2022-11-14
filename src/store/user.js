@@ -57,6 +57,7 @@ export const userStore = defineStore('user', {
         this.username = null
         this.userId = null
         this.token = null
+        resolve()
       })
     }
   }
