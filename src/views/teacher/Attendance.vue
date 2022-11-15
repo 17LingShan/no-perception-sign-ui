@@ -1,10 +1,6 @@
 <template>
   <a-card>
-    <a-row>
-      <a-col :span="24">
-        <a-table :columns="course.columns" :data-source="course.data"></a-table>
-      </a-col>
-    </a-row>
+
   </a-card>
 </template>
 <script setup>

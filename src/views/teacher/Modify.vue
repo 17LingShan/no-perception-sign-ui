@@ -1,7 +1,65 @@
 <template>
-  <div>Modify</div>
+  <a-card>
+    <a-row>
+      <a-col>
+        <a-button type="primary" @click="() => addModal.visible = true">添加课程</a-button>
+      </a-col>
+    </a-row>
+    <a-row style="margin-top: 50px;">
+      <a-col :span="24">
+        <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data"></a-table>
+      </a-col>
+    </a-row>
+  </a-card>
+  <AddCourseModal :visible="addModal.visible" @close="closeModal" />
+
 </template>
 <script setup>
+import { onMounted, reactive } from 'vue'
+import { inquireCourse } from '@/api/teacher'
+import AddCourseModal from './components/AddCourseModal'
+
+const course = reactive({
+  data: null,
+  loading: false,
+  columns: [
+    {
+      title: '课程代码',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      width: '20%'
+    },
+    {
+      title: '课程名称',
+      dataIndex: 'course_name',
+      key: 'course_name',
+      align: 'center'
+    }
+  ]
+})
+
+onMounted(() => {
+  getJoinCourse()
+})
+
+const getJoinCourse = () => {
+  course.loading = true
+  inquireCourse().then(res => {
+    course.data = res.data.message
+    setInterval(() => course.loading = false, 500)
+  })
+}
+
+const addModal = reactive({
+  visible: false
+})
+
+const closeModal = () => {
+  addModal.visible = false
+  getJoinCourse()
+}
+
 
 </script>
 

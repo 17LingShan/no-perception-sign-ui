@@ -2,7 +2,7 @@
   <a-card>
     <a-row>
       <a-col>
-        <a-button type="primary" @click="() => addModal.visiable = true">添加课程</a-button>
+        <a-button type="primary" @click="() => addModal.visible = true">添加课程</a-button>
       </a-col>
       <a-col :offset="1">
         <a-button type="primary" @click="getJoinCourse">刷新</a-button>
@@ -22,7 +22,7 @@
       </a-col>
     </a-row>
   </a-card>
-  <AddCourseModal :visible="addModal.visiable" @close="closeModal" />
+  <AddCourseModal :visible="addModal.visible" @close="closeModal" />
 
 </template>
 
@@ -30,7 +30,7 @@
 import { onMounted, reactive } from 'vue'
 import { userStore } from '@/store/user'
 import { inquireJoinCourse, quitCourse } from '@/api/student'
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 import AddCourseModal from './components/AddCourseModal'
 
 const piniaUser = userStore()
@@ -62,7 +62,7 @@ const course = reactive({
 })
 
 const addModal = reactive({
-  visiable: false
+  visible: false
 })
 
 onMounted(() => {
@@ -98,7 +98,7 @@ const exitCourse = async (record) => {
 }
 
 const closeModal = () => {
-  addModal.visiable = false
+  addModal.visible = false
   getJoinCourse()
 }
 
