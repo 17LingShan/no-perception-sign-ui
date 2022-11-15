@@ -4,20 +4,15 @@
       <div class="logo">
         <h1>vue</h1>
       </div>
-      <a-menu mode="inline" theme="dark" v-model:selectedKeys="layout.selectedKeys" @click="temp">
-        <a-sub-menu v-for="item in layout.menus" :key="item.name">
+      <a-menu mode="inline" theme="dark">
+        <a-menu-item v-for="item in layout.menus" :key="item.name" style="color: #fff;">
           <template #icon>
             <component :is="$antIcons[item.meta.icon]" />
           </template>
-          <template v-if="!layout.collapsed" #title>
-            <span>{{ item.meta.title }}</span>
-          </template>
-          <a-menu-item v-for="kid_item in item.children" :key="kid_item.name">
-            <router-link :to="kid_item.path">
-              {{ kid_item.meta.title }}
-            </router-link>
-          </a-menu-item>
-        </a-sub-menu>
+          <router-link :to="item.path">
+            {{ item.meta.title }}
+          </router-link>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -26,7 +21,6 @@
           <MenuFoldOutlined v-if="!layout.collapsed" />
           <MenuUnfoldOutlined v-if="layout.collapsed" />
         </div>
-
         <div class="header-right">
           <span>
             <RightContent :username="piniaUser.username" @logout="logout" />
@@ -34,7 +28,7 @@
         </div>
       </a-layout-header>
       <a-layout-content>
-        <a-page-header :title="route.meta.title" style="background-color: #ffffff; padding: 24px" />
+        <a-page-header :title="route.meta.title" style="background-color: #fff; padding: 24px" />
         <div class="page-container">
           <router-view />
         </div>
@@ -45,7 +39,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRaw } from 'vue'
+import { onMounted, reactive, toRaw } from 'vue'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
 import { useRouter, useRoute } from 'vue-router'
@@ -60,7 +54,6 @@ const route = useRoute()
 
 const layout = reactive({
   menus: null,
-  selectedKeys: null,
   collapsed: false
 })
 
@@ -79,13 +72,6 @@ const logout = () => {
   })
 }
 
-const temp = ({ item, key, keyPath }) => {
-  layout.selectedKeys = key
-  console.log(layout.selectedKeys)
-  console.log(item)
-  console.log(key)
-  console.log(keyPath)
-}
 </script>
 
 <style lang="scss">

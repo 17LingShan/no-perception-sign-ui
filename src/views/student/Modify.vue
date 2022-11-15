@@ -23,7 +23,6 @@
     </a-row>
   </a-card>
   <AddCourseModal :visible="addModal.visible" @close="closeModal" />
-
 </template>
 
 <script setup>

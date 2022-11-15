@@ -3,6 +3,15 @@
     <a-row>
       <a-col :span="24">
         <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'attendance_state'">
+              <span>
+                <a-tag :color="record.attendance_state === '出勤' ? 'green' : 'red'">
+                  {{ record.attendance_state }}
+                </a-tag>
+              </span>
+            </template>
+          </template>
         </a-table>
       </a-col>
     </a-row>
@@ -13,7 +22,6 @@ import { onMounted, reactive } from 'vue'
 import moment from 'moment'
 import { inquireAttendance } from '@/api/student'
 import { message } from 'ant-design-vue';
-
 
 const course = reactive({
   data: null,

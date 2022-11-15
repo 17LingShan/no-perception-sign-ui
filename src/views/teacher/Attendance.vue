@@ -2,15 +2,23 @@
   <a-card>
     <a-row>
       <a-col>
-        <a-input />
-      </a-col>
-      <a-col>
-        <a-button type="primary">搜索</a-button>
+        <a-input-search v-model:value="course.course_id" enter-button="搜索课号" @search="searchCourseAttendance(course)" />
       </a-col>
     </a-row>
-    <a-row style="margin-top: 50px;">
+    <a-row style="margin-top: 50px;" v-if="course.data">
       <a-col :span="24">
-        <a-table :columns="course.columns" :data-source="course.data"></a-table>
+        <a-table :columns="course.columns" :data-source="course.data">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'attendance_state'">
+              <span>
+                <a-tag style="cursor: pointer;" :color="record.attendance_state === '出勤' ? 'green' : 'red'"
+                  @click="changeAttendance">
+                  {{ record.attendance_state }}
+                </a-tag>
+              </span>
+            </template>
+          </template>
+        </a-table>
       </a-col>
     </a-row>
   </a-card>
@@ -18,13 +26,16 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { inquireCourse, inquireAttendance } from '@/api/teacher'
+import moment from 'moment'
+import { inquireAttendance } from '@/api/teacher'
+import { message } from 'ant-design-vue';
 
 const route = useRoute()
 
 const course = reactive({
   data: null,
   loading: false,
+  course_id: null,
   columns: [
     {
       title: '课程代码',
@@ -74,15 +85,27 @@ onMounted(() => {
   }
 })
 
-const searchCourseAttendance = (course_id) => {
+const searchCourseAttendance = async (parms) => {
   course.loading = true
-  inquireAttendance(course_id).then(res => {
+  const args = {
+    course_id: parms.course_id
+  }
+  await inquireAttendance(args).then(res => {
     console.log(res)
     if (res.data.code === 200) {
+      res.data.message.forEach((item, index, arr) => {
+        arr[index].attendance_time = moment(item.attendance_time).format('YYYY-MM-DD hh:mm:ss')
+      })
       course.data = res.data.message
+    } else {
+      message.error({ content: res.data.message })
+      course.data = null
     }
-
   })
+}
+
+const changeAttendance = () => {
+  console.log(1)
 }
 </script>
 

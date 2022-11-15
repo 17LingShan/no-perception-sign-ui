@@ -7,71 +7,37 @@ import { UserLayout, BasicLayout } from '@/layouts'
 //   render: h => h('router-view')
 // }
 
-
-
 export const asyncRouterMap = [
   {
     path: '/',
     name: 'index',
     component: BasicLayout,
     meta: { title: 'index', role: 'index' },
-    redirect: '/daily/attendance',
+    redirect: '/attendance',
     children: [
       {
-        path: '/daily',
-        name: 'daily',
-        // component: RouteView,
-        meta: { title: '日常', keepAlive: true, icon: 'CalendarOutlined', role: 'student' },
-        children: [
-          {
-            path: '/daily/attendance',
-            name: 'attendance',
-            component: () => import('@/views/student/Attendance'),
-            meta: { title: '考勤', role: 'student' }
-          }
-        ]
+        path: '/attendance',
+        name: 'attendance',
+        component: () => import('@/views/student/Attendance'),
+        meta: { title: '考勤', role: 'student', icon: 'CalendarOutlined' }
       },
       {
-        path: '/course',
-        name: 'course',
-        // component: RouteView,
-        meta: { title: '课程', keepAlive: true, icon: 'BookOutlined', role: 'student' },
-        children: [
-          {
-            path: '/course/modify',
-            name: 'modify',
-            component: () => import('@/views/student/Modify'),
-            meta: { title: '查看课程', role: 'student' }
-          }
-        ]
+        path: '/modify',
+        name: 'modify',
+        component: () => import('@/views/student/Modify'),
+        meta: { title: '课程', role: 'student', icon: 'BookOutlined' }
       },
       {
-        path: '/daily',
-        name: 'daily',
-        // component: RouteView,
-        meta: { title: '日常', keepAlive: true, icon: 'CalendarOutlined', role: 'teacher' },
-        children: [
-          {
-            path: '/daily/attendance',
-            name: 'attendance',
-            component: () => import('@/views/teacher/Attendance'),
-            meta: { title: '考勤', role: 'teacher' }
-          }
-        ]
+        path: '/attendance',
+        name: 'attendance',
+        component: () => import('@/views/teacher/Attendance'),
+        meta: { title: '考勤', role: 'teacher', icon: 'CalendarOutlined' }
       },
       {
-        path: '/course',
-        name: 'course',
-        // component: RouteView,
-        meta: { title: '课程', keepAlive: true, icon: 'BookOutlined', role: 'teacher' },
-        children: [
-          {
-            path: '/course/modify',
-            name: 'modify',
-            component: () => import('@/views/teacher/Modify'),
-            meta: { title: '查看课程', role: 'teacher' }
-          }
-        ]
+        path: '/modify',
+        name: 'modify',
+        component: () => import('@/views/teacher/Modify'),
+        meta: { title: '课程', role: 'teacher', icon: 'BookOutlined' }
       },
     ]
   }
