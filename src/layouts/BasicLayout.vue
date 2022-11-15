@@ -4,7 +4,7 @@
       <div class="logo">
         <h1>vue</h1>
       </div>
-      <a-menu mode="inline" theme="dark">
+      <a-menu mode="inline" theme="dark" v-model:selectedKeys="layout.selectedKeys" @click="temp">
         <a-sub-menu v-for="item in layout.menus" :key="item.name">
           <template #icon>
             <component :is="$antIcons[item.meta.icon]" />
@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, toRaw } from 'vue'
+import { onMounted, reactive, ref, toRaw } from 'vue'
 import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
 import { useRouter, useRoute } from 'vue-router'
@@ -60,6 +60,7 @@ const route = useRoute()
 
 const layout = reactive({
   menus: null,
+  selectedKeys: null,
   collapsed: false
 })
 
@@ -78,6 +79,13 @@ const logout = () => {
   })
 }
 
+const temp = ({ item, key, keyPath }) => {
+  layout.selectedKeys = key
+  console.log(layout.selectedKeys)
+  console.log(item)
+  console.log(key)
+  console.log(keyPath)
+}
 </script>
 
 <style lang="scss">

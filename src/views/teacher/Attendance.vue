@@ -67,12 +67,10 @@ const course = reactive({
 onMounted(() => {
   console.log(route.query)
   if (route.query.course_id) {
-    console.log(route.query)
     const parms = {
       course_id: route.query.course_id
     }
     searchCourseAttendance(parms)
-
   }
 })
 
@@ -80,7 +78,10 @@ const searchCourseAttendance = (course_id) => {
   course.loading = true
   inquireAttendance(course_id).then(res => {
     console.log(res)
-    course.data = res.data.message
+    if (res.data.code === 200) {
+      course.data = res.data.message
+    }
+
   })
 }
 </script>
