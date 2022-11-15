@@ -16,7 +16,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { createCourse } from '@/api/teacher'
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 const emit = defineEmits(['close'])
 const props = defineProps({
   visible: Boolean
@@ -40,8 +40,9 @@ const addCourse = async () => {
       message.success({ content: '加入失败！' })
     })
   })
+  courseForm.value.resetFields()
   setTimeout(() => {
-    courseForm.confirmLoading = false
+    courseData.confirmLoading = false
     closeModal()
   }, 500)
 }

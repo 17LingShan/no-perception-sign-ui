@@ -7,7 +7,13 @@
     </a-row>
     <a-row style="margin-top: 50px;">
       <a-col :span="24">
-        <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data"></a-table>
+        <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'course_name'">
+              <a href="javascript:;" @click="searchAttendance(record)">{{ record.course_name }}</a>
+            </template>
+          </template>
+        </a-table>
       </a-col>
     </a-row>
   </a-card>
@@ -16,8 +22,11 @@
 </template>
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { inquireCourse } from '@/api/teacher'
 import AddCourseModal from './components/AddCourseModal'
+
+const router = useRouter()
 
 const course = reactive({
   data: null,
@@ -60,6 +69,10 @@ const closeModal = () => {
   getJoinCourse()
 }
 
+const searchAttendance = (record) => {
+  console.log(record)
+  router.push({ name: 'attendance', query: { course_id: record.id } })
+}
 
 </script>
 
