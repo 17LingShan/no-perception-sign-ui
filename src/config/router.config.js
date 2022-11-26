@@ -13,7 +13,7 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: 'index', role: 'index' },
-    redirect: '/attendance',
+    redirect: '/modify',
     children: [
       {
         path: '/modify',

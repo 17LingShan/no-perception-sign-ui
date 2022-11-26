@@ -18,10 +18,10 @@
     </a-row>
   </a-card>
   <AddCourseModal :visible="addModal.visible" @close="closeAddModal" />
-  <SelectCourse :visible="selectModal.visible" :record="selectModal.record" @close="closeSelModal" />
+  <SelectCourse ref="selCourse" :visible="selectModal.visible" :record="selectModal.record" @close="closeSelModal" />
 </template>
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { inquireCourse } from '@/api/teacher'
 import AddCourseModal from './components/AddCourseModal'
@@ -49,17 +49,11 @@ const course = reactive({
   ]
 })
 
+const selCourse = ref()
+
 onMounted(() => {
   getJoinCourse()
 })
-
-const getJoinCourse = () => {
-  course.loading = true
-  inquireCourse().then(res => {
-    course.data = res.data.message
-    setInterval(() => course.loading = false, 500)
-  })
-}
 
 const addModal = reactive({
   visible: false
@@ -77,12 +71,21 @@ const closeAddModal = () => {
 
 const closeSelModal = () => {
   selectModal.visible = false
+  // selectModal.record = null
 }
 
 const searchAttendance = (record) => {
   selectModal.visible = true
   selectModal.record = record
   // router.push({ name: 'attendance', query: { course_id: record.id } })
+}
+
+const getJoinCourse = () => {
+  course.loading = true
+  inquireCourse().then(res => {
+    course.data = res.data.message
+    setInterval(() => course.loading = false, 500)
+  })
 }
 
 </script>

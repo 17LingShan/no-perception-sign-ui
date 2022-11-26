@@ -48,3 +48,11 @@ export function inquireCourse () {
     method: 'post'
   })
 }
+
+export function inquireAttendanceRecord (parms) {
+  return requestService({
+    url: api.inquireAttendanceRecord,
+    method: 'post',
+    data: parms
+  })
+}
