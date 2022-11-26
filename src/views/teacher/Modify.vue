@@ -17,14 +17,15 @@
       </a-col>
     </a-row>
   </a-card>
-  <AddCourseModal :visible="addModal.visible" @close="closeModal" />
-
+  <AddCourseModal :visible="addModal.visible" @close="closeAddModal" />
+  <SelectCourse :visible="selectModal.visible" :record="selectModal.record" @close="closeSelModal" />
 </template>
 <script setup>
 import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { inquireCourse } from '@/api/teacher'
 import AddCourseModal from './components/AddCourseModal'
+import SelectCourse from './components/SelectCourse.vue'
 
 const router = useRouter()
 
@@ -64,14 +65,24 @@ const addModal = reactive({
   visible: false
 })
 
-const closeModal = () => {
+const selectModal = reactive({
+  visible: false,
+  record: null
+})
+
+const closeAddModal = () => {
   addModal.visible = false
   getJoinCourse()
 }
 
+const closeSelModal = () => {
+  selectModal.visible = false
+}
+
 const searchAttendance = (record) => {
-  console.log(record)
-  router.push({ name: 'attendance', query: { course_id: record.id } })
+  selectModal.visible = true
+  selectModal.record = record
+  // router.push({ name: 'attendance', query: { course_id: record.id } })
 }
 
 </script>

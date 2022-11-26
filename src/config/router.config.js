@@ -16,12 +16,6 @@ export const asyncRouterMap = [
     redirect: '/attendance',
     children: [
       {
-        path: '/attendance',
-        name: 'attendance',
-        component: () => import('@/views/student/Attendance'),
-        meta: { title: '考勤', role: 'student', icon: 'CalendarOutlined' }
-      },
-      {
         path: '/modify',
         name: 'modify',
         component: () => import('@/views/student/Modify'),
@@ -30,14 +24,20 @@ export const asyncRouterMap = [
       {
         path: '/attendance',
         name: 'attendance',
-        component: () => import('@/views/teacher/Attendance'),
-        meta: { title: '考勤', role: 'teacher', icon: 'CalendarOutlined' }
+        component: () => import('@/views/student/Attendance'),
+        meta: { title: '考勤', role: 'student', icon: 'CalendarOutlined' }
       },
       {
         path: '/modify',
         name: 'modify',
         component: () => import('@/views/teacher/Modify'),
         meta: { title: '课程', role: 'teacher', icon: 'BookOutlined' }
+      },
+      {
+        path: '/attendance',
+        name: 'attendance',
+        component: () => import('@/views/teacher/Attendance'),
+        meta: { title: '考勤', role: 'teacher', icon: 'CalendarOutlined' }
       },
     ]
   }

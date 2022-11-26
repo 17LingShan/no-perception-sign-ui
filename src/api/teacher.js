@@ -5,7 +5,9 @@ const api = {
   createCourse: '/teacher/create_course',
   attendanceRecord: '/teacher/attendance_record',
   checkCourseExist: '/teacher/check_course_exist',
-  inquireCourse: '/teacher/inquire_course'
+  inquireCourse: '/teacher/inquire_course',
+  inquireAttendanceRecord: '/teacher/inquire_attendenceRecord',
+  inputAttendanceRecord: '/teacher/input_attendenceRecord'
 }
 
 export function inquireAttendance (parms) {

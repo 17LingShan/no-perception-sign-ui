@@ -91,7 +91,6 @@ const searchCourseAttendance = async (parms) => {
     course_id: parms.course_id
   }
   await inquireAttendance(args).then(res => {
-    console.log(res)
     if (res.data.code === 200) {
       res.data.message.forEach((item, index, arr) => {
         arr[index].attendance_time = moment(item.attendance_time).format('YYYY-MM-DD hh:mm:ss')
@@ -105,7 +104,6 @@ const searchCourseAttendance = async (parms) => {
 }
 
 const changeAttendance = () => {
-  console.log(1)
 }
 </script>
 
