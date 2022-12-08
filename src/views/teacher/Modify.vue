@@ -77,7 +77,6 @@ const closeSelModal = () => {
 const searchAttendance = (record) => {
   selectModal.visible = true
   selectModal.record = record
-  // router.push({ name: 'attendance', query: { course_id: record.id } })
 }
 
 const getJoinCourse = () => {
