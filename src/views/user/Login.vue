@@ -48,14 +48,13 @@
           <a href="javascript:;" style="float: right">注册</a>
         </router-link>
       </a-form-item>
-
       <a-form-item>
         <a-button
           type="primary"
           style="width: 100%; margin-top: 10px"
           @click="login"
-          >登录</a-button
-        >
+          >登录
+        </a-button>
       </a-form-item>
     </a-form>
   </div>

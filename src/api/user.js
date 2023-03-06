@@ -1,17 +1,25 @@
 import { requestService } from '@/utils/request'
 
+const regMap = {
+  student: '/user/student_register',
+  teacher: '/teacher/teacher_register',
+  developer:'/openplatform/developer_register'
+}
+
+const logMap = {
+  student: '/user/student_login',
+  teacher: '/teacher/teacher_login',
+  developer:'/openplatform/developer_login'
+}
+
 const api = {
-  studentLogin: '/user/student_login',
-  teacherLogin: '/teacher/teacher_login',
-  studentRegister: '/user/student_register',
-  teacherRegister: '/teacher/teacher_register',
   captcha: '/user/captcha'
 }
 
 //loginType = student：学生，loginType = teacher：教师
 export function login (parms) {
   return requestService({
-    url: parms.loginType === 'teacher' ? api.teacherLogin : api.studentLogin,
+    url: logMap[parms.loginType],
     method: 'post',
     data: parms.data
   })
@@ -19,7 +27,7 @@ export function login (parms) {
 
 export function regiser (parms) {
   return requestService({
-    url: parms.loginType === 'teacher' ? api.teacherRegister : api.studentRegister,
+    url: regMap[parms.loginType],
     method: 'post',
     data: parms.data
   })

@@ -6,9 +6,9 @@ import { permissionStore } from '@/store/permission'
 import { TOKEN } from '@/store/types'
 
 const loginRoutePath = '/user/login'
+const registerRoutePath = '/user/register'
 
 router.beforeEach((to, from, next) => {
-
   const piniaUser = userStore()
   const piniaPermisstion = permissionStore()
 
@@ -27,11 +27,13 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
+        console.log(1);
+
         next()
       }
     }
   } else {
-    if (to.path === loginRoutePath) {
+    if (to.path === loginRoutePath || to.path === registerRoutePath) {
       next()
     } else {
       next({ path: loginRoutePath })

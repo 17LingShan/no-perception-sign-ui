@@ -3,6 +3,7 @@
     <a-tabs tabPosition="top" v-model:activeKey="tabs.activeKey" centered>
       <a-tab-pane key="student" tab="学生注册" />
       <a-tab-pane key="teacher" tab="教师注册" />
+      <a-tab-pane key="developer" tab="开发者注册" />
     </a-tabs>
     <a-form ref="registerForm" :model="registerInfo">
       <a-form-item
@@ -184,6 +185,10 @@ const register = () => {
       registerForm.value.resetFields();
     })
     .catch((err) => {});
+};
+
+const handleRegDev = () => {
+  console.log(1);
 };
 </script>
 
