@@ -1,6 +1,11 @@
 <template>
-  <a-modal :title="`课程代码：${courseData.course_id}-${courseData.course_name}`" :visible="props.visible"
-    @cancel="closeModal" width="40%" centered>
+  <a-modal
+    :title="`课程代码：${courseData.course_id}-${courseData.course_name}`"
+    :visible="props.visible"
+    @cancel="closeModal"
+    width="40%"
+    centered
+  >
     <a-table :columns="selCourse.columns" :data-source="selCourse.data">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -12,90 +17,93 @@
 </template>
 
 <script setup>
-import { reactive, defineExpose, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { inquireAttendanceRecord } from '@/api/teacher'
-import { message } from 'ant-design-vue'
+import { reactive, defineExpose, watch } from "vue";
+import { useRouter } from "vue-router";
+import { inquireAttendanceRecord } from "@/api/teacher";
+import { message } from "ant-design-vue";
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 const props = defineProps({
   visible: Boolean,
-  record: Object
-})
+  record: Object,
+});
 
-const router = useRouter()
+const router = useRouter();
 const selCourse = reactive({
   data: null,
   columns: [
     {
-      title: '课程名称',
-      dataIndex: 'course_name',
-      key: 'course_name'
+      title: "课程名称",
+      dataIndex: "course_name",
+      key: "course_name",
     },
     {
-      title: '课程时间',
-      dataIndex: 'lessons_time',
-      key: 'lessons_time'
+      title: "课程时间",
+      dataIndex: "lessons_time",
+      key: "lessons_time",
     },
     {
-      title: '考勤时间',
-      dataIndex: 'attendance_time',
-      key: 'attendance_time'
+      title: "考勤时间",
+      dataIndex: "attendance_time",
+      key: "attendance_time",
     },
     {
-      title: '操作',
-      key: 'action'
-    }
-  ]
-})
+      title: "操作",
+      key: "action",
+    },
+  ],
+});
 
-watch(() => props.record, (newRecord) => {
-  console.log(newRecord)
-  setInfo()
-  getCourseAttendance()
-})
+watch(
+  () => props.record,
+  (newRecord) => {
+    console.log(newRecord);
+    setInfo();
+    getCourseAttendance();
+  }
+);
 
 const courseData = reactive({
   confirmLoading: false,
   course_id: null,
   course_name: null,
-  teacher_id: null
-})
+  teacher_id: null,
+});
 
 const setInfo = () => {
-  courseData.course_id = props.record.id
-  courseData.course_name = props.record.course_name
-  courseData.teacher_id = props.record.teacher_id
-}
+  courseData.course_id = props.record.id;
+  courseData.course_name = props.record.course_name;
+  courseData.teacher_id = props.record.teacher_id;
+};
 
 const getCourseAttendance = () => {
-  selCourse.data = null
-  inquireAttendanceRecord({ course_id: courseData.course_id }).then(res => {
+  selCourse.data = null;
+  inquireAttendanceRecord({ course_id: courseData.course_id }).then((res) => {
     if (res.data.code === 200) {
-      selCourse.data = res.data.message
+      selCourse.data = res.data.message;
     } else {
-      message.warn({ content: res.data.message })
+      message.warn({ content: res.data.message });
     }
-  })
-}
+  });
+};
 
 const handleModify = (record) => {
-  console.log(record)
+  console.log(record);
   router.push({
-    name: 'attendance',
+    name: "attendance",
     query: {
       course_id: record.course_id,
       attendance_time: record.attendance_time,
-      lessons_time: record.lessons_time
-    }
-  })
-}
+      lessons_time: record.lessons_time,
+    },
+  });
+};
 
 const closeModal = () => {
-  emit('close')
-}
+  emit("close");
+};
 
 defineExpose({
-  setInfo
-})
+  setInfo,
+});
 </script>
