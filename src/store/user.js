@@ -34,7 +34,6 @@ export const userStore = defineStore('user', {
     GetInfo () {
       return new Promise(resolve => {
         const userInfo = JSON.parse(storage.get(USERINFO))
-        // console.log(userInfo)
         this.userType = userInfo.userType
         this.username = userInfo.username
         this.userId = userInfo.userId

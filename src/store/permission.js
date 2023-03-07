@@ -5,6 +5,7 @@ import { constantRouterMap, asyncRouterMap } from '@/config/router.config'
 
 function filterAsyncRouter (routerMap, role) {
   const accessedRouters = routerMap.filter(route => {
+  console.log(route.meta.role === role)
     if (route.meta.role === role || route.path === '/') {
       if (route.children) {
         route.children = filterAsyncRouter(route.children, role)
@@ -31,6 +32,7 @@ export const permissionStore = defineStore('permission', {
         const accessedRouters = filterAsyncRouter(routerMap, userType)
         this.addRouters = accessedRouters
         this.routers = constantRouterMap.concat(routerMap)
+        console.log(this.routers)
         reslove()
       })
     }

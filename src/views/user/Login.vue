@@ -3,6 +3,7 @@
     <a-tabs tabPosition="top" v-model:activeKey="tabs.activeKey" centered>
       <a-tab-pane key="student" tab="学生登录" />
       <a-tab-pane key="teacher" tab="教师登录" />
+      <a-tab-pane key="developer" tab="开发者登录" />
     </a-tabs>
     <a-form ref="userForm" :model="loginInfo">
       <a-form-item
@@ -86,10 +87,10 @@ const login = () => {
   userForm.value
     .validateFields()
     .then(async (values) => {
+      const loginType = tabs.activeKey;
       const data = new FormData();
       data.append("email", values.email);
       data.append("password", values.password);
-      const loginType = tabs.activeKey;
       await piniaUser
         .Login({ data, loginType })
         .then((res) => {
@@ -101,7 +102,6 @@ const login = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
           message.warn({ content: "登录失败！请检查账号密码是否正确！" });
         });
       userForm.value.resetFields();

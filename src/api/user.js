@@ -16,7 +16,8 @@ const api = {
   captcha: '/user/captcha'
 }
 
-//loginType = student：学生，loginType = teacher：教师
+// loginType = student：学生，loginType = teacher：教师
+// developer：开发者，manager：管理员
 export function login (parms) {
   return requestService({
     url: logMap[parms.loginType],

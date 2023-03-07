@@ -5,15 +5,14 @@ import { userStore } from '@/store/user'
 import { permissionStore } from '@/store/permission'
 import { TOKEN } from '@/store/types'
 
-const loginRoutePath = '/user/login'
-const registerRoutePath = '/user/register'
+const accessablePath = ['/user/login', '/user/register']
 
 router.beforeEach((to, from, next) => {
   const piniaUser = userStore()
   const piniaPermisstion = permissionStore()
 
   if (storage.get(TOKEN)) {
-    if (to.path === loginRoutePath) {
+    if (accessablePath.includes(to.path)) {
       next()
     } else {
       if (!piniaUser.userId || !piniaUser.username || !piniaUser.userType) {
@@ -27,16 +26,14 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
-        console.log(1);
-
         next()
       }
     }
   } else {
-    if (to.path === loginRoutePath || to.path === registerRoutePath) {
+    if (accessablePath.includes(to.path)) {
       next()
     } else {
-      next({ path: loginRoutePath })
+      next({ path: accessablePath[0] })
     }
   }
 

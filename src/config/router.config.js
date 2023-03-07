@@ -39,6 +39,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/teacher/Attendance'),
         meta: { title: '考勤', role: 'teacher', icon: 'CalendarOutlined' }
       },
+      {
+        path: '/modify',
+        name: 'modify',
+        component: () => import('@/views/developer/application'),
+        meta: { title: '文档', role: 'developer', icon: 'CalendarOutlined' }
+      },
     ]
   }
 ]

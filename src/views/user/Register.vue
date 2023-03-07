@@ -153,15 +153,10 @@ const getCaptcha = () => {
         .then((res) => {
           if (res.data.code === 200) message.success({ content: "发送成功！" });
           else message.error({ content: "发送失败！" });
-          console.log(res);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 const register = () => {
@@ -180,15 +175,12 @@ const register = () => {
         if (res.data.code === 200) {
           message.success({ content: "注册成功！" });
           router.push({ name: "login" });
-        } else message.error({ content: "注册失败！同一学号请勿重复注册！" });
+        } else
+          message.error({ content: "注册失败！同一学号/工号请勿重复注册！" });
       });
       registerForm.value.resetFields();
     })
     .catch((err) => {});
-};
-
-const handleRegDev = () => {
-  console.log(1);
 };
 </script>
 
