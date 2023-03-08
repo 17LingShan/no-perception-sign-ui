@@ -5,7 +5,11 @@
         <h1>vue</h1>
       </div>
       <a-menu mode="inline" theme="dark">
-        <a-menu-item v-for="item in layout.menus" :key="item.name" style="color: #fff;">
+        <a-menu-item
+          v-for="item in layout.menus"
+          :key="item.name"
+          style="color: #fff"
+        >
           <template #icon>
             <component :is="$antIcons[item.meta.icon]" />
           </template>
@@ -26,9 +30,15 @@
             <RightContent :username="piniaUser.username" @logout="logout" />
           </span>
         </div>
+        <div class="developer-permission">
+          <a-tag color="#2db7f5">{{ hasPermission }}</a-tag>
+        </div>
       </a-layout-header>
       <a-layout-content>
-        <a-page-header :title="route.meta.title" style="background-color: #fff; padding: 24px" />
+        <a-page-header
+          :title="route.meta.title"
+          style="background-color: #fff; padding: 24px"
+        />
         <div class="page-container">
           <router-view />
         </div>
@@ -39,39 +49,52 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, toRaw } from 'vue'
-import { userStore } from '@/store/user'
-import { permissionStore } from '@/store/permission'
-import { useRouter, useRoute } from 'vue-router'
-import { message } from 'ant-design-vue'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
-import RightContent from '@/components/GlobalHeader/RightContent'
+import { onMounted, reactive, ref, toRaw } from "vue";
+import { userStore } from "@/store/user";
+import { permissionStore } from "@/store/permission";
+import { useRouter, useRoute } from "vue-router";
+import { message } from "ant-design-vue";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
+import RightContent from "@/components/GlobalHeader/RightContent";
+import { queryPermission } from "@/api/developer";
 
-const piniaUser = userStore()
-const piniaPermission = permissionStore()
-const router = useRouter()
-const route = useRoute()
+const piniaUser = userStore();
+const piniaPermission = permissionStore();
+const router = useRouter();
+const route = useRoute();
+
+const hasPermission = ref("");
 
 const layout = reactive({
   menus: null,
-  collapsed: false
-})
+  collapsed: false,
+});
 
 onMounted(() => {
-  const routes = toRaw(piniaPermission.addRouters.find(item => item.path === '/'))
-  layout.menus = (routes && routes.children) || []
-})
+  const routes = toRaw(
+    piniaPermission.addRouters.find((item) => item.path === "/")
+  );
+  layout.menus = (routes && routes.children) || [];
+
+  queryPermission().then((res) => {
+    if (res.code === 200) {
+      hasPermission.value = "您已取得开发权限";
+    } else {
+      hasPermission.value = "您未取得开发权限";
+    }
+  });
+});
+
 const changeCollapsed = () => {
-  layout.collapsed = !layout.collapsed
-}
+  layout.collapsed = !layout.collapsed;
+};
 
 const logout = () => {
   piniaUser.Logout().then(() => {
-    message.success({ content: '退出登录！' })
-    router.push({ name: 'login' })
-  })
-}
-
+    message.success({ content: "退出登录！" });
+    router.push({ name: "login" });
+  });
+};
 </script>
 
 <style lang="scss">
@@ -119,6 +142,10 @@ const logout = () => {
       text-align: center;
     }
 
+    .developer-permission {
+      float: right;
+    }
+
     .header-right {
       float: right;
       height: 100%;
@@ -130,7 +157,6 @@ const logout = () => {
     .header-right:hover {
       background: #f9f9f9;
     }
-
   }
 
   .page-container {
