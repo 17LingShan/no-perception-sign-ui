@@ -164,19 +164,22 @@ const register = () => {
     .validateFields()
     .then(async (values) => {
       const data = new FormData();
+      console.log(values);
       data.append("email", values.email);
       data.append("captcha", values.captcha);
       data.append("username", values.username);
-      data.append("password", values.passowrd);
-      data.append("password_confirm", values.passowrd);
+      data.append("password", values.password);
+      data.append("password_confirm", values.password);
       data.append("student_id", values.userId);
       const loginType = tabs.activeKey;
       await piniaUser.Register({ data, loginType }).then((res) => {
+        console.log(res);
         if (res.data.code === 200) {
           message.success({ content: "注册成功！" });
           router.push({ name: "login" });
-        } else
+        } else {
           message.error({ content: "注册失败！同一学号/工号请勿重复注册！" });
+        }
       });
       registerForm.value.resetFields();
     })

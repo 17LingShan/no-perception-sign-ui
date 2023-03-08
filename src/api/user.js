@@ -26,7 +26,7 @@ export function login (parms) {
   })
 }
 
-export function regiser (parms) {
+export function register (parms) {
   return requestService({
     url: regMap[parms.loginType],
     method: 'post',

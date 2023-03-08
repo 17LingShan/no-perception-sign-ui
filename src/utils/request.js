@@ -30,7 +30,6 @@ export function requestService (config) {
   }, (err) => {
     const piniaUser = userStore()
     const router = useRouter()
-    console.log(1)
     piniaUser.Logout().then(() => {
       router.push({ path: '/user/login' })
     })

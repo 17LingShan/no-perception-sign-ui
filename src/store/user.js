@@ -1,6 +1,6 @@
 import storage from 'store'
 import { defineStore } from 'pinia'
-import { login, regiser } from '@/api/user'
+import { login, register } from '@/api/user'
 import { TOKEN, USERID, USERNAME, USERTYPE, USERINFO } from './types'
 
 export const userStore = defineStore('user', {
@@ -40,9 +40,9 @@ export const userStore = defineStore('user', {
         resolve()
       })
     },
-    Register (regiserInfo) {
+    Register (registerInfo) {
       return new Promise((resolve, reject) => {
-        regiser(regiserInfo).then(res => {
+        register(registerInfo).then(res => {
           resolve(res)
         }).catch(err => {
           reject(err)
