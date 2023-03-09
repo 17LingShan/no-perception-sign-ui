@@ -42,10 +42,8 @@ const apply = () => {
       const data = {
         reason: values.reason,
       };
-      console.log(data);
       await applyPermission(data)
         .then((res) => {
-          console.log(res);
           if (res.code === 200) {
             message.info({ content: "正在申请，请等待审核！" });
           } else {

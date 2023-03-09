@@ -57,7 +57,6 @@ const selCourse = reactive({
 watch(
   () => props.record,
   (newRecord) => {
-    console.log(newRecord);
     setInfo();
     getCourseAttendance();
   }
@@ -88,7 +87,6 @@ const getCourseAttendance = () => {
 };
 
 const handleModify = (record) => {
-  console.log(record);
   router.push({
     name: "attendance",
     query: {

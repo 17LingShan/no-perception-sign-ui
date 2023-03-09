@@ -13,8 +13,7 @@
   </div>
 </template>
 
-<script>
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 #user-layout {
@@ -48,7 +47,7 @@
 
       .main {
         min-width: 260px;
-        width: 368px;
+        width: 500px;
         margin: 0 auto;
       }
     }

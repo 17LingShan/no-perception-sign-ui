@@ -30,7 +30,7 @@
             <RightContent :username="piniaUser.username" @logout="logout" />
           </span>
         </div>
-        <div class="developer-permission">
+        <div class="developer-permission" v-if="isDeveloper">
           <a-tag color="#2db7f5">{{ hasPermission }}</a-tag>
         </div>
       </a-layout-header>
@@ -63,6 +63,7 @@ const piniaPermission = permissionStore();
 const router = useRouter();
 const route = useRoute();
 
+const isDeveloper = ref(false);
 const hasPermission = ref("");
 
 const layout = reactive({
@@ -76,6 +77,17 @@ onMounted(() => {
   );
   layout.menus = (routes && routes.children) || [];
 
+  if (piniaUser.userType === "developer") {
+    checkPermission();
+    isDeveloper.value = true;
+  }
+});
+
+const changeCollapsed = () => {
+  layout.collapsed = !layout.collapsed;
+};
+
+const checkPermission = () => {
   queryPermission().then((res) => {
     if (res.code === 200) {
       hasPermission.value = "您已取得开发权限";
@@ -83,10 +95,6 @@ onMounted(() => {
       hasPermission.value = "您未取得开发权限";
     }
   });
-});
-
-const changeCollapsed = () => {
-  layout.collapsed = !layout.collapsed;
 };
 
 const logout = () => {

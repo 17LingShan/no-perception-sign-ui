@@ -4,6 +4,7 @@
       <a-tab-pane key="student" tab="学生登录" />
       <a-tab-pane key="teacher" tab="教师登录" />
       <a-tab-pane key="developer" tab="开发者登录" />
+      <a-tab-pane key="manager" tab="管理员登录" />
     </a-tabs>
     <a-form ref="userForm" :model="loginInfo">
       <a-form-item
@@ -43,8 +44,8 @@
         <a-checkbox
           v-model:checked="loginInfo.autoLogin"
           @change="checkedChange"
-          >自动登录</a-checkbox
-        >
+          >自动登录
+        </a-checkbox>
         <router-link :to="{ name: 'register' }">
           <a href="javascript:;" style="float: right">注册</a>
         </router-link>
@@ -54,7 +55,8 @@
           type="primary"
           style="width: 100%; margin-top: 10px"
           @click="login"
-          >登录
+        >
+          登录
         </a-button>
       </a-form-item>
     </a-form>
@@ -111,9 +113,7 @@ const login = () => {
     });
 };
 
-const checkedChange = () => {
-  console.log(loginInfo.autoLogin);
-};
+const checkedChange = () => {};
 </script>
 
 <style lang="scss">

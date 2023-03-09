@@ -93,14 +93,12 @@ const exitCourse = async (record) => {
   };
   await quitCourse(parms)
     .then((res) => {
-      console.log(res);
       res.data.code === 200
         ? message.success({ content: "退出课程成功！" })
         : message.error({ content: "退出课程失败！" });
       getJoinCourse();
     })
     .catch((err) => {
-      console.log(err);
       message.error({ content: "退出课程失败！" });
     });
   setTimeout(() => {

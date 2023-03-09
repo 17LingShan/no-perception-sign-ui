@@ -94,7 +94,6 @@ const course = reactive({
 
 onMounted(() => {
   if (route.query.course_id) {
-    console.log(route.query);
     searchCourseAttendance(route.query);
   }
 });
@@ -104,7 +103,6 @@ const searchCourseAttendance = async (parms) => {
 
   await inquireAttendance(parms)
     .then((res) => {
-      console.log(res);
       if (res.data.code === 200) {
         res.data.message.forEach((item, index, arr) => {
           arr[index].attendance_time = moment(item.attendance_time).format(
@@ -117,9 +115,7 @@ const searchCourseAttendance = async (parms) => {
         course.data = null;
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 const changeAttendance = ({
@@ -128,15 +124,10 @@ const changeAttendance = ({
   lessons_time: lesson_time,
   student_id,
 }) => {
-  // console.log(record)
-  console.log({ attendance_state, course_id, lesson_time, student_id });
   if (attendance_state === "出勤") {
     message.warn({ content: "已出勤！" });
   } else {
-    // console.log({ student_id: piniaUser.userId, course_id: parseInt(course_id), lesson_time });
-    attendanceRecord({ student_id, course_id, lesson_time }).then((res) => {
-      console.log(res);
-    });
+    attendanceRecord({ student_id, course_id, lesson_time }).then((res) => {});
   }
 };
 </script>

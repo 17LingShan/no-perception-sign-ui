@@ -1,6 +1,5 @@
 // import { h } from 'vue'
-import { UserLayout, BasicLayout } from '@/layouts'
-
+import { UserLayout, BasicLayout } from "@/layouts";
 
 // const RouteView = {
 //   name: 'RouteView',
@@ -9,62 +8,68 @@ import { UserLayout, BasicLayout } from '@/layouts'
 
 export const asyncRouterMap = [
   {
-    path: '/',
-    name: 'index',
+    path: "/",
+    name: "index",
     component: BasicLayout,
-    meta: { title: 'index', role: 'index' },
-    redirect: '/modify',
+    meta: { title: "index", role: "index" },
+    redirect: "/modify",
     children: [
       {
-        path: '/modify',
-        name: 'modify',
-        component: () => import('@/views/student/Modify'),
-        meta: { title: '课程', role: 'student', icon: 'BookOutlined' }
+        path: "/modify",
+        name: "modify",
+        component: () => import("@/views/student/Modify"),
+        meta: { title: "课程", role: "student", icon: "BookOutlined" },
       },
       {
-        path: '/attendance',
-        name: 'attendance',
-        component: () => import('@/views/student/Attendance'),
-        meta: { title: '考勤', role: 'student', icon: 'CalendarOutlined' }
+        path: "/attendance",
+        name: "attendance",
+        component: () => import("@/views/student/Attendance"),
+        meta: { title: "考勤", role: "student", icon: "CalendarOutlined" },
       },
       {
-        path: '/modify',
-        name: 'modify',
-        component: () => import('@/views/teacher/Modify'),
-        meta: { title: '课程', role: 'teacher', icon: 'BookOutlined' }
+        path: "/modify",
+        name: "modify",
+        component: () => import("@/views/teacher/Modify"),
+        meta: { title: "课程", role: "teacher", icon: "BookOutlined" },
       },
       {
-        path: '/attendance',
-        name: 'attendance',
-        component: () => import('@/views/teacher/Attendance'),
-        meta: { title: '考勤', role: 'teacher', icon: 'CalendarOutlined' }
+        path: "/attendance",
+        name: "attendance",
+        component: () => import("@/views/teacher/Attendance"),
+        meta: { title: "考勤", role: "teacher", icon: "CalendarOutlined" },
       },
       {
-        path: '/modify',
-        name: 'modify',
-        component: () => import('@/views/developer/application'),
-        meta: { title: '文档', role: 'developer', icon: 'CalendarOutlined' }
+        path: "/modify",
+        name: "modify",
+        component: () => import("@/views/developer/application"),
+        meta: { title: "文档", role: "developer", icon: "CalendarOutlined" },
       },
-    ]
-  }
-]
+      {
+        path: "/modify",
+        name: "modify",
+        component: () => import("@/views/manager/manager"),
+        meta: { title: "文档", role: "manager", icon: "CalendarOutlined" },
+      },
+    ],
+  },
+];
 
 export const constantRouterMap = [
   {
-    path: '/user',
+    path: "/user",
     component: UserLayout,
-    redirect: '/user/login',
+    redirect: "/user/login",
     children: [
       {
-        path: 'login',
-        name: 'login',
-        component: () => import('@/views/user/login')
+        path: "login",
+        name: "login",
+        component: () => import("@/views/user/login"),
       },
       {
-        path: 'register',
-        name: 'register',
-        component: () => import('@/views/user/register')
-      }
-    ]
-  }
-]
+        path: "register",
+        name: "register",
+        component: () => import("@/views/user/register"),
+      },
+    ],
+  },
+];

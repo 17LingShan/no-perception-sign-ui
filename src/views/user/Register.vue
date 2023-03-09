@@ -4,6 +4,7 @@
       <a-tab-pane key="student" tab="学生注册" />
       <a-tab-pane key="teacher" tab="教师注册" />
       <a-tab-pane key="developer" tab="开发者注册" />
+      <a-tab-pane key="manager" tab="管理员注册" />
     </a-tabs>
     <a-form ref="registerForm" :model="registerInfo">
       <a-form-item
@@ -164,7 +165,6 @@ const register = () => {
     .validateFields()
     .then(async (values) => {
       const data = new FormData();
-      console.log(values);
       data.append("email", values.email);
       data.append("captcha", values.captcha);
       data.append("username", values.username);
@@ -173,7 +173,6 @@ const register = () => {
       data.append("student_id", values.userId);
       const loginType = tabs.activeKey;
       await piniaUser.Register({ data, loginType }).then((res) => {
-        console.log(res);
         if (res.data.code === 200) {
           message.success({ content: "注册成功！" });
           router.push({ name: "login" });
