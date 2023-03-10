@@ -41,13 +41,13 @@ export const asyncRouterMap = [
       {
         path: "/modify",
         name: "modify",
-        component: () => import("@/views/developer/application"),
+        component: () => import("@/views/developer/Application"),
         meta: { title: "文档", role: "developer", icon: "CalendarOutlined" },
       },
       {
         path: "/modify",
         name: "modify",
-        component: () => import("@/views/manager/manager"),
+        component: () => import("@/views/manager/Manager"),
         meta: { title: "文档", role: "manager", icon: "CalendarOutlined" },
       },
     ],

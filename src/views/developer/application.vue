@@ -45,9 +45,9 @@ const apply = () => {
       await applyPermission(data)
         .then((res) => {
           if (res.code === 200) {
-            message.info({ content: "正在申请，请等待审核！" });
+            message.info({ content: "申请推送成功，请耐心等待审核！" });
           } else {
-            message.error({ content: "申请失败！" });
+            message.info({ content: "正在申请中，请耐心等待审核！" });
           }
         })
         .catch((err) => {

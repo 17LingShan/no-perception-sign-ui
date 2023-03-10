@@ -34,6 +34,7 @@
     </a-row>
   </a-card>
 </template>
+
 <script setup>
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
