@@ -49,8 +49,8 @@ export const asyncRouterMap = [
         },
       },
       {
-        path: "/modify",
-        name: "modify",
+        path: "/document",
+        name: "document",
         component: () => import("@/views/developer/Document"),
         meta: { title: "api文档", role: "developer", icon: "CalendarOutlined" },
       },

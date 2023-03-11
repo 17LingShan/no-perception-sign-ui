@@ -4,7 +4,7 @@
       <div class="logo">
         <h1>vue</h1>
       </div>
-      <a-menu mode="inline" theme="dark">
+      <a-menu v-model:selectedKeys="selectedKeys" mode="inline" theme="dark">
         <a-menu-item v-for="item in layout.menus" :key="item.name" style="color: #fff">
           <template #icon>
             <component :is="$antIcons[item.meta.icon]" />
@@ -58,6 +58,7 @@ const route = useRoute();
 
 const isDeveloper = ref(false);
 const hasPermission = ref("");
+const selectedKeys = ref(["modify"]);
 
 const layout = reactive({
   menus: null,
