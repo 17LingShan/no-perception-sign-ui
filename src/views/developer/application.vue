@@ -25,6 +25,7 @@
     </a-row>
   </a-card>
 </template>
+
 <script setup>
 import { reactive, ref } from "vue";
 import { applyPermission } from "@/api/developer";
