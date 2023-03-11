@@ -89,7 +89,8 @@ const changeCollapsed = () => {
 
 const checkPermission = () => {
   queryPermission().then((res) => {
-    if (res.code === 200) {
+    console.log(res);
+    if (res.data.code === 200) {
       hasPermission.value = "您已取得开发权限";
     } else {
       hasPermission.value = "您未取得开发权限";

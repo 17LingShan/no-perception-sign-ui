@@ -16,7 +16,8 @@
               type="primary"
               style="width: 100%; margin-top: 10px"
               @click="apply"
-              >登录
+            >
+              申请
             </a-button>
           </a-form-item>
         </a-form>
