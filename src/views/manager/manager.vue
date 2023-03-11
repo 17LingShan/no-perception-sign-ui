@@ -15,13 +15,24 @@
             >
               <template #bodyCell="{ column, record }">
                 <template v-if="column.dataIndex === 'flag'">
-                  <a-tag :color="record.flag === '1' ? 'green' : 'red'">
-                    {{ record.flag === "1" ? "拥有权限" : "未拥有权限" }}
+                  <a-tag :color="record.flag === 1 ? 'green' : 'red'">
+                    {{ record.flag === 1 ? "拥有权限" : "未拥有权限" }}
                   </a-tag>
+                </template>
+                <template
+                  v-if="column.dataIndex === 'operation' && record.flag === 1"
+                >
+                  <a-popconfirm
+                    title="确定需要取消权限吗？"
+                    @confirm="handleDel(record)"
+                  >
+                    <a href="javascript:;"> 取消权限 </a>
+                  </a-popconfirm>
                 </template>
               </template>
             </a-table>
           </a-tab-pane>
+
           <a-tab-pane key="nowDeveloper" tab="正在申请权限">
             <a-table
               :columns="currentAppCol"
@@ -49,7 +60,7 @@
   </a-card>
 </template>
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, resolveDirective } from "vue";
 import {
   queryCurrentApp,
   agreeApp,
@@ -57,6 +68,7 @@ import {
   queryAllApp,
   delApp,
 } from "@/api/manager";
+import { message } from "ant-design-vue";
 
 const activeKey = ref();
 
@@ -66,13 +78,19 @@ const allAppCol = [
     dataIndex: "id",
     key: "id",
     align: "center",
-    width: "50%",
+    width: "40%",
   },
   {
     title: "申请人状态",
     dataIndex: "flag",
     key: "flag",
     align: "center",
+  },
+  {
+    title: "修改权限",
+    dataIndex: "operation",
+    align: "center",
+    width: "10%",
   },
 ];
 
@@ -113,20 +131,25 @@ const applicationTable = reactive({
 });
 
 onMounted(() => {
-  loadAllApp();
-  loadCurrentApp();
+  loadApp();
 });
+
+const loadApp = async () => {
+  await loadAllApp();
+  await loadCurrentApp();
+};
 
 const loadAllApp = () => {
   applicationTable.loading = true;
   queryAllApp()
     .then((res) => {
-      console.log(res);
       if (res.data.code === 200) {
         applicationTable.allApp = res.data.message;
       }
     })
-    .catch((err) => {});
+    .catch((err) => {
+      message.error({ content: "错误信息！" });
+    });
 
   setTimeout(() => {
     applicationTable.loading = false;
@@ -138,13 +161,12 @@ const loadCurrentApp = () => {
 
   queryCurrentApp()
     .then((res) => {
-      console.log(res);
       if (res.data.code === 200) {
         applicationTable.currentApp = res.data.message;
       }
     })
     .catch((err) => {
-      console.log(err);
+      message.error({ content: "错误信息！" });
     });
 
   setTimeout(() => {
@@ -153,19 +175,43 @@ const loadCurrentApp = () => {
 };
 
 const handleAgree = async (record) => {
-  const data = {
-    id: record.id,
-  };
-  console.log(record);
-  await agreeApp(data).then((res) => {
-    console.log(res);
-  });
+  await agreeApp({ id: record.id })
+    .then((res) => {
+      if (res.data.code === 200) {
+        message.success({ content: "接受申请！" });
+      }
+    })
+    .catch((err) => {
+      message.error({ content: "错误信息！" });
+    });
+  loadApp();
 };
 
-const handleRefuse = (record) => {
-  refuseApp({ id: record.id }).then((res) => {
-    console.log(res);
-  });
+const handleRefuse = async (record) => {
+  await refuseApp({ id: record.id })
+    .then((res) => {
+      if (res.data.code === 200) {
+        message.success({ content: "拒绝申请！" });
+      }
+    })
+    .catch((err) => {
+      message.error({ content: "错误信息！" });
+    });
+  loadApp();
+};
+
+const handleDel = async (record) => {
+  await delApp({ id: record.id })
+    .then((res) => {
+      if (res.data.code === 200) {
+        message.success({ content: "取消成功！" });
+      }
+    })
+    .catch((err) => {
+      message.error({ content: "错误信息！" });
+    });
+
+  loadApp();
 };
 </script>
 
