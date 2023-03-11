@@ -7,33 +7,16 @@
       <a-tab-pane key="manager" tab="管理员登录" />
     </a-tabs>
     <a-form ref="userForm" :model="loginInfo">
-      <a-form-item
-        name="email"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
-      >
-        <a-input
-          id="loginEmail"
-          v-model:value="loginInfo.email"
-          size="large"
-          type="text"
-          placeholder="邮箱"
-        >
+      <a-form-item name="email" :rules="[{ required: true, message: 'Please input your username!' }]">
+        <a-input id="loginEmail" v-model:value="loginInfo.email" size="large" type="text" placeholder="邮箱">
           <template #prefix>
             <MailOutlined style="margin-right: 5px" />
           </template>
         </a-input>
       </a-form-item>
 
-      <a-form-item
-        name="password"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
-      >
-        <a-input
-          v-model:value="loginInfo.password"
-          size="large"
-          type="password"
-          placeholder="密码"
-        >
+      <a-form-item name="password" :rules="[{ required: true, message: 'Please input your username!' }]">
+        <a-input v-model:value="loginInfo.password" size="large" type="password" placeholder="密码">
           <template #prefix>
             <LockOutlined style="margin-right: 5px" />
           </template>
@@ -41,23 +24,13 @@
       </a-form-item>
 
       <a-form-item name="autoLogin">
-        <a-checkbox
-          v-model:checked="loginInfo.autoLogin"
-          @change="checkedChange"
-          >自动登录
-        </a-checkbox>
+        <a-checkbox v-model:checked="loginInfo.autoLogin" @change="checkedChange">自动登录 </a-checkbox>
         <router-link :to="{ name: 'register' }">
           <a href="javascript:;" style="float: right">注册</a>
         </router-link>
       </a-form-item>
       <a-form-item>
-        <a-button
-          type="primary"
-          style="width: 100%; margin-top: 10px"
-          @click="login"
-        >
-          登录
-        </a-button>
+        <a-button type="primary" style="width: 100%; margin-top: 10px" @click="login"> 登录 </a-button>
       </a-form-item>
     </a-form>
   </div>

@@ -1,36 +1,11 @@
 <template>
-  <a-modal
-    title="添加课程"
-    :confirmLoading="courseData.confirmLoading"
-    :visible="props.visible"
-    @ok="addCourse"
-    @cancel="closeModal"
-    centered
-  >
+  <a-modal title="添加课程" :confirmLoading="courseData.confirmLoading" :visible="props.visible" @ok="addCourse" @cancel="closeModal" centered>
     <a-form ref="courseForm" :model="courseData">
-      <a-form-item
-        label="课程名称"
-        name="course_name"
-        :rules="[{ required: true, message: 'Please input your courseId!' }]"
-      >
-        <a-input
-          id="course_name"
-          v-model:value="courseData.course_name"
-          size="large"
-          type="text"
-        />
+      <a-form-item label="课程名称" name="course_name" :rules="[{ required: true, message: 'Please input your courseId!' }]">
+        <a-input id="course_name" v-model:value="courseData.course_name" size="large" type="text" />
       </a-form-item>
-      <a-form-item
-        label="课程代码"
-        name="course_id"
-        :rules="[{ required: true, message: 'Please input your courseId!' }]"
-      >
-        <a-input
-          id="course_id"
-          v-model:value="courseData.course_id"
-          size="large"
-          type="text"
-        />
+      <a-form-item label="课程代码" name="course_id" :rules="[{ required: true, message: 'Please input your courseId!' }]">
+        <a-input id="course_id" v-model:value="courseData.course_id" size="large" type="text" />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -57,9 +32,7 @@ const addCourse = async () => {
   await courseForm.value.validateFields().then((values) => {
     createCourse(values)
       .then((res) => {
-        res.data.code === 200
-          ? message.success({ content: "加入成功！" })
-          : message.error({ content: res.data.message });
+        res.data.code === 200 ? message.success({ content: "加入成功！" }) : message.error({ content: res.data.message });
       })
       .catch((err) => {
         message.success({ content: "加入失败！" });

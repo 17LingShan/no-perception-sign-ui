@@ -1,11 +1,5 @@
 <template>
-  <a-modal
-    :title="`课程代码：${courseData.course_id}-${courseData.course_name}`"
-    :visible="props.visible"
-    @cancel="closeModal"
-    width="40%"
-    centered
-  >
+  <a-modal :title="`课程代码：${courseData.course_id}-${courseData.course_name}`" :visible="props.visible" @cancel="closeModal" width="40%" centered>
     <a-table :columns="selCourse.columns" :data-source="selCourse.data">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">

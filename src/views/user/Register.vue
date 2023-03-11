@@ -7,17 +7,8 @@
       <a-tab-pane key="manager" tab="管理员注册" />
     </a-tabs>
     <a-form ref="registerForm" :model="registerInfo">
-      <a-form-item
-        name="email"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
-      >
-        <a-input
-          id="registerEmail"
-          v-model:value="registerInfo.email"
-          size="large"
-          type="text"
-          placeholder="邮箱"
-        >
+      <a-form-item name="email" :rules="[{ required: true, message: 'Please input your username!' }]">
+        <a-input id="registerEmail" v-model:value="registerInfo.email" size="large" type="text" placeholder="邮箱">
           <template #prefix>
             <MailOutlined style="margin-right: 5px" />
           </template>
@@ -25,17 +16,8 @@
       </a-form-item>
       <a-row :gutter="16">
         <a-col :span="16">
-          <a-form-item
-            name="captcha"
-            :rules="[{ required: true, message: 'Please input your captcha!' }]"
-          >
-            <a-input
-              id="registerCaptcha"
-              v-model:value="registerInfo.captcha"
-              size="large"
-              type="text"
-              placeholder="验证码"
-            >
+          <a-form-item name="captcha" :rules="[{ required: true, message: 'Please input your captcha!' }]">
+            <a-input id="registerCaptcha" v-model:value="registerInfo.captcha" size="large" type="text" placeholder="验证码">
               <template #prefix>
                 <VerifiedOutlined style="margin-right: 5px" />
               </template>
@@ -43,54 +25,25 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-button style="width: 100%; height: 40px" @click="getCaptcha"
-            >发送</a-button
-          >
+          <a-button style="width: 100%; height: 40px" @click="getCaptcha">发送</a-button>
         </a-col>
       </a-row>
-      <a-form-item
-        name="username"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
-      >
-        <a-input
-          id="registerUsername"
-          v-model:value="registerInfo.username"
-          size="large"
-          type="text"
-          placeholder="用户名"
-        >
+      <a-form-item name="username" :rules="[{ required: true, message: 'Please input your username!' }]">
+        <a-input id="registerUsername" v-model:value="registerInfo.username" size="large" type="text" placeholder="用户名">
           <template #prefix>
             <UserOutlined style="margin-right: 5px" />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        name="userId"
-        :rules="[{ required: true, message: 'Please input your userId!' }]"
-      >
-        <a-input
-          id="registerUserId"
-          v-model:value="registerInfo.userId"
-          size="large"
-          type="text"
-          placeholder="工号/学号"
-        >
+      <a-form-item name="userId" :rules="[{ required: true, message: 'Please input your userId!' }]">
+        <a-input id="registerUserId" v-model:value="registerInfo.userId" size="large" type="text" placeholder="工号/学号">
           <template #prefix>
             <IdcardOutlined style="margin-right: 5px" />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        name="password"
-        :rules="[{ required: true, message: 'Please input your password!' }]"
-      >
-        <a-input
-          id="password"
-          v-model:value="registerInfo.password"
-          size="large"
-          type="password"
-          placeholder="密码"
-        >
+      <a-form-item name="password" :rules="[{ required: true, message: 'Please input your password!' }]">
+        <a-input id="password" v-model:value="registerInfo.password" size="large" type="password" placeholder="密码">
           <template #prefix>
             <IdcardOutlined style="margin-right: 5px" />
           </template>
@@ -103,12 +56,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button
-          type="primary"
-          style="width: 100%; margin-top: 10px"
-          @click="register"
-          >注册</a-button
-        >
+        <a-button type="primary" style="width: 100%; margin-top: 10px" @click="register">注册</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -120,12 +68,7 @@ import { userStore } from "@/store/user";
 import { useRouter } from "vue-router";
 import { captcha } from "@/api/user";
 import { message } from "ant-design-vue";
-import {
-  UserOutlined,
-  MailOutlined,
-  IdcardOutlined,
-  VerifiedOutlined,
-} from "@ant-design/icons-vue";
+import { UserOutlined, MailOutlined, IdcardOutlined, VerifiedOutlined } from "@ant-design/icons-vue";
 
 const piniaUser = userStore();
 const router = useRouter();

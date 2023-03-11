@@ -2,11 +2,7 @@
   <a-card>
     <a-row>
       <a-col>
-        <a-input-search
-          v-model:value="course.course_id"
-          enter-button="搜索课号"
-          @search="searchCourseAttendance(course)"
-        />
+        <a-input-search v-model:value="course.course_id" enter-button="搜索课号" @search="searchCourseAttendance(course)" />
       </a-col>
     </a-row>
     <a-row style="margin-top: 50px">
@@ -14,16 +10,8 @@
         <a-table :columns="course.columns" :data-source="course.data">
           <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'attendance_state'">
-              <a-popconfirm
-                title="是否更改考勤信息？"
-                cancelText="否"
-                okText="是"
-                @confirm="changeAttendance(record)"
-              >
-                <a-tag
-                  style="cursor: pointer"
-                  :color="record.attendance_state === '出勤' ? 'green' : 'red'"
-                >
+              <a-popconfirm title="是否更改考勤信息？" cancelText="否" okText="是" @confirm="changeAttendance(record)">
+                <a-tag style="cursor: pointer" :color="record.attendance_state === '出勤' ? 'green' : 'red'">
                   {{ record.attendance_state }}
                 </a-tag>
               </a-popconfirm>
@@ -106,9 +94,7 @@ const searchCourseAttendance = async (parms) => {
     .then((res) => {
       if (res.data.code === 200) {
         res.data.message.forEach((item, index, arr) => {
-          arr[index].attendance_time = moment(item.attendance_time).format(
-            "YYYY-MM-DD hh:mm:ss"
-          );
+          arr[index].attendance_time = moment(item.attendance_time).format("YYYY-MM-DD hh:mm:ss");
         });
         course.data = res.data.message;
       } else {
@@ -119,12 +105,7 @@ const searchCourseAttendance = async (parms) => {
     .catch((err) => {});
 };
 
-const changeAttendance = ({
-  attendance_state,
-  course_id,
-  lessons_time: lesson_time,
-  student_id,
-}) => {
+const changeAttendance = ({ attendance_state, course_id, lessons_time: lesson_time, student_id }) => {
   if (attendance_state === "出勤") {
     message.warn({ content: "已出勤！" });
   } else {

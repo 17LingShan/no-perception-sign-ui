@@ -1,37 +1,37 @@
-import { requestService } from '@/utils/request'
+import { requestService } from "@/utils/request";
 
 const api = {
-  inquireAttendance: '/user/inquire_attendance',
-  joinCourse: '/user/join_course',
-  quitCourse: '/user/quit_course',
-  inquireJoinCourse: '/user/inquire_joincourse'
-}
+  inquireAttendance: "/user/inquire_attendance",
+  joinCourse: "/user/join_course",
+  quitCourse: "/user/quit_course",
+  inquireJoinCourse: "/user/inquire_joincourse",
+};
 
-export function inquireAttendance () {
+export function inquireAttendance() {
   return requestService({
     url: api.inquireAttendance,
-    method: 'post'
-  })
+    method: "post",
+  });
 }
-export function inquireJoinCourse () {
+export function inquireJoinCourse() {
   return requestService({
     url: api.inquireJoinCourse,
-    method: 'post'
-  })
+    method: "post",
+  });
 }
 
-export function joinCourse (parms) {
+export function joinCourse(parms) {
   return requestService({
     url: api.joinCourse,
-    method: 'post',
-    data: parms
-  })
+    method: "post",
+    data: parms,
+  });
 }
 
-export function quitCourse (parms) {
+export function quitCourse(parms) {
   return requestService({
     url: api.quitCourse,
-    method: 'post',
-    data: parms
-  })
+    method: "post",
+    data: parms,
+  });
 }

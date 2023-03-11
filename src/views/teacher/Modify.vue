@@ -2,23 +2,15 @@
   <a-card>
     <a-row>
       <a-col>
-        <a-button type="primary" @click="() => (addModal.visible = true)"
-          >添加课程</a-button
-        >
+        <a-button type="primary" @click="() => (addModal.visible = true)">添加课程</a-button>
       </a-col>
     </a-row>
     <a-row style="margin-top: 50px">
       <a-col :span="24">
-        <a-table
-          :loading="course.loading"
-          :columns="course.columns"
-          :data-source="course.data"
-        >
+        <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
           <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'course_name'">
-              <a href="javascript:;" @click="searchAttendance(record)">{{
-                record.course_name
-              }}</a>
+              <a href="javascript:;" @click="searchAttendance(record)">{{ record.course_name }}</a>
             </template>
           </template>
         </a-table>
@@ -26,12 +18,7 @@
     </a-row>
   </a-card>
   <AddCourseModal :visible="addModal.visible" @close="closeAddModal" />
-  <SelectCourse
-    ref="selCourse"
-    :visible="selectModal.visible"
-    :record="selectModal.record"
-    @close="closeSelModal"
-  />
+  <SelectCourse ref="selCourse" :visible="selectModal.visible" :record="selectModal.record" @close="closeSelModal" />
 </template>
 <script setup>
 import { onMounted, reactive, ref } from "vue";

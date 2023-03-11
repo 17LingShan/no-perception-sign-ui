@@ -13,22 +13,19 @@
             Logout
           </a>
         </a-menu-item>
-
       </a-menu>
     </template>
   </a-dropdown>
 </template>
 
 <script setup>
-
 const props = defineProps({
-  username: String
-})
-
+  username: String,
+});
 </script>
 
 <style lang="scss" scoped>
-.ant-avatar+span {
+.ant-avatar + span {
   margin-left: 20px;
 }
 </style>

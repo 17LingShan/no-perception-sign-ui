@@ -5,11 +5,7 @@
         <h1>vue</h1>
       </div>
       <a-menu mode="inline" theme="dark">
-        <a-menu-item
-          v-for="item in layout.menus"
-          :key="item.name"
-          style="color: #fff"
-        >
+        <a-menu-item v-for="item in layout.menus" :key="item.name" style="color: #fff">
           <template #icon>
             <component :is="$antIcons[item.meta.icon]" />
           </template>
@@ -35,10 +31,7 @@
         </div>
       </a-layout-header>
       <a-layout-content>
-        <a-page-header
-          :title="route.meta.title"
-          style="background-color: #fff; padding: 24px"
-        />
+        <a-page-header :title="route.meta.title" style="background-color: #fff; padding: 24px" />
         <div class="page-container">
           <router-view />
         </div>
@@ -72,9 +65,7 @@ const layout = reactive({
 });
 
 onMounted(() => {
-  const routes = toRaw(
-    piniaPermission.addRouters.find((item) => item.path === "/")
-  );
+  const routes = toRaw(piniaPermission.addRouters.find((item) => item.path === "/"));
   layout.menus = (routes && routes.children) || [];
 
   if (piniaUser.userType === "developer") {
