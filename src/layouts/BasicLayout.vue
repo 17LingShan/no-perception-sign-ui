@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRaw } from "vue";
+import { onMounted, reactive, ref, computed, toRaw } from "vue";
 import { userStore } from "@/store/user";
 import { permissionStore } from "@/store/permission";
 import { useRouter, useRoute } from "vue-router";
@@ -58,12 +58,12 @@ const route = useRoute();
 
 const isDeveloper = ref(false);
 const hasPermission = ref("");
-const selectedKeys = ref(["modify"]);
-
 const layout = reactive({
   menus: null,
   collapsed: false,
 });
+
+const selectedKeys = computed(() => [piniaPermission.nowPage]);
 
 onMounted(() => {
   const routes = toRaw(piniaPermission.addRouters.find((item) => item.path === "/"));

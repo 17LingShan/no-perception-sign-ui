@@ -37,6 +37,7 @@ const course = reactive({
       title: "出勤时间",
       dataIndex: "attendance_time",
       key: "attendance_time",
+      align: "center",
     },
     {
       title: "状态",
@@ -51,9 +52,6 @@ onMounted(() => {
   course.loading = true;
   inquireAttendance()
     .then((res) => {
-      res.data.message.forEach((item, index, arr) => {
-        arr[index].attendance_time = moment(item.attendance_time).format("YYYY-MM-DD hh:mm:ss");
-      });
       course.data = res.data.message;
       setTimeout(() => (course.loading = false), 500);
     })

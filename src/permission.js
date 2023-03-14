@@ -11,6 +11,7 @@ router.beforeEach((to, from, next) => {
   const piniaUser = userStore();
   const piniaPermission = permissionStore();
 
+  piniaPermission.nowPage = to.path.replace("/", "");
   if (storage.get(TOKEN)) {
     if (accessablePath.includes(to.path)) {
       next();
