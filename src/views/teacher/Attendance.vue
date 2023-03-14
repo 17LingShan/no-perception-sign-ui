@@ -1,13 +1,8 @@
 <template>
   <a-card>
-    <a-row>
-      <a-col>
-        <a-input-search v-model:value="course.course_id" enter-button="搜索课号" @search="searchCourseAttendance(course)" />
-      </a-col>
-    </a-row>
     <a-row style="margin-top: 50px">
       <a-col :span="24">
-        <a-table :columns="course.columns" :data-source="course.data">
+        <a-table :columns="course.columns" :data-source="course.data" :loading="course.loading">
           <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'attendance_state'">
               <a-popconfirm title="是否更改考勤信息？" cancelText="否" okText="是" @confirm="changeAttendance(record)">
@@ -69,11 +64,6 @@ const course = reactive({
       align: "center",
     },
     {
-      title: "时间",
-      dataIndex: "attendance_time",
-      key: "attendance_time",
-    },
-    {
       title: "状态",
       dataIndex: "attendance_state",
       key: "attendance_state",
@@ -92,24 +82,46 @@ const searchCourseAttendance = async (parms) => {
 
   await inquireAttendance(parms)
     .then((res) => {
+      console.log(res);
       if (res.data.code === 200) {
-        res.data.message.forEach((item, index, arr) => {
-          arr[index].attendance_time = moment(item.attendance_time).format("YYYY-MM-DD hh:mm:ss");
-        });
         course.data = res.data.message;
       } else {
         message.error({ content: res.data.message });
         course.data = null;
       }
     })
-    .catch((err) => {});
+    .catch((err) => {
+      message.error({ content: "未知错误！" });
+    });
+
+  setTimeout(() => (course.loading = false), 300);
 };
 
-const changeAttendance = ({ attendance_state, course_id, lessons_time: lesson_time, student_id }) => {
-  if (attendance_state === "出勤") {
+const changeAttendance = async (record) => {
+  if (record.attendance_state === "出勤") {
     message.warn({ content: "已出勤！" });
   } else {
-    attendanceRecord({ student_id, course_id, lesson_time }).then((res) => {});
+    const data = {
+      course_id: record.course_id,
+      student_id: record.student_id,
+      lesson_time: record.lessons_time,
+      attendance_time: route.query.attendance_time,
+    };
+    await attendanceRecord(data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 200) {
+          message.success({ content: "修改成功！" });
+          if (route.query.course_id) {
+            searchCourseAttendance(route.query);
+          }
+        } else {
+          message.error({ content: res.data.message });
+        }
+      })
+      .catch((err) => {
+        message.error({ content: "未知错误！" });
+      });
   }
 };
 </script>
