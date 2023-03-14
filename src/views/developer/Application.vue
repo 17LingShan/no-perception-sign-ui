@@ -6,7 +6,6 @@
           <a-form-item name="reason" label="申请理由" :rules="[{ required: true, message: 'Please input your reason!' }]">
             <a-textarea v-model:value="developer.reason" />
           </a-form-item>
-
           <a-form-item>
             <a-button type="primary" style="width: 100%; margin-top: 10px" @click="apply"> 申请 </a-button>
           </a-form-item>
