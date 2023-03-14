@@ -2,30 +2,17 @@
   <a-card>
     <a-row>
       <a-col :span="24">
-        <a-tabs
-          v-model:activeKey="activeKey"
-          tab-position="left"
-          :style="{ minHeight: '30rem' }"
-        >
+        <a-tabs v-model:activeKey="activeKey" tab-position="left" :style="{ minHeight: '30rem' }">
           <a-tab-pane key="allDeveloper" tab="所有申请权限">
-            <a-table
-              :columns="allAppCol"
-              :data-source="applicationTable.allApp"
-              :loading="applicationTable.loading"
-            >
+            <a-table :columns="allAppCol" :data-source="applicationTable.allApp" :loading="applicationTable.loading">
               <template #bodyCell="{ column, record }">
                 <template v-if="column.dataIndex === 'flag'">
                   <a-tag :color="record.flag === 1 ? 'green' : 'red'">
                     {{ record.flag === 1 ? "拥有权限" : "未拥有权限" }}
                   </a-tag>
                 </template>
-                <template
-                  v-if="column.dataIndex === 'operation' && record.flag === 1"
-                >
-                  <a-popconfirm
-                    title="确定需要取消权限吗？"
-                    @confirm="handleDel(record)"
-                  >
+                <template v-if="column.dataIndex === 'operation' && record.flag === 1">
+                  <a-popconfirm title="确定需要取消权限吗？" @confirm="handleDel(record)">
                     <a href="javascript:;"> 取消权限 </a>
                   </a-popconfirm>
                 </template>
@@ -34,20 +21,10 @@
           </a-tab-pane>
 
           <a-tab-pane key="nowDeveloper" tab="正在申请权限">
-            <a-table
-              :columns="currentAppCol"
-              :data-source="applicationTable.currentApp"
-              :loading="applicationTable.loading"
-            >
+            <a-table :columns="currentAppCol" :data-source="applicationTable.currentApp" :loading="applicationTable.loading">
               <template #bodyCell="{ column, record }">
                 <template v-if="column.dataIndex === 'confirm'">
-                  <a-popconfirm
-                    title="请确认申请信息"
-                    cancelText="拒绝"
-                    okText="同意"
-                    @cancel="handleRefuse(record)"
-                    @confirm="handleAgree(record)"
-                  >
+                  <a-popconfirm title="请确认申请信息" cancelText="拒绝" okText="同意" @cancel="handleRefuse(record)" @confirm="handleAgree(record)">
                     <a-tag color="blue" style="cursor: pointer"> 申请中 </a-tag>
                   </a-popconfirm>
                 </template>
@@ -61,13 +38,7 @@
 </template>
 <script setup>
 import { onMounted, reactive, ref, resolveDirective } from "vue";
-import {
-  queryCurrentApp,
-  agreeApp,
-  refuseApp,
-  queryAllApp,
-  delApp,
-} from "@/api/manager";
+import { queryCurrentApp, agreeApp, refuseApp, queryAllApp, delApp } from "@/api/manager";
 import { message } from "ant-design-vue";
 
 const activeKey = ref();

@@ -2,9 +2,7 @@
   <a-card>
     <a-row>
       <a-col>
-        <a-button type="primary" @click="() => (addModal.visible = true)"
-          >添加课程</a-button
-        >
+        <a-button type="primary" @click="() => (addModal.visible = true)">添加课程</a-button>
       </a-col>
       <a-col :offset="1">
         <a-button type="primary" @click="getJoinCourse">刷新</a-button>
@@ -12,17 +10,10 @@
     </a-row>
     <a-row style="margin-top: 50px">
       <a-col :span="24">
-        <a-table
-          :loading="course.loading"
-          :columns="course.columns"
-          :data-source="course.data"
-        >
+        <a-table :loading="course.loading" :columns="course.columns" :data-source="course.data">
           <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'operation'">
-              <a-popconfirm
-                title="确定要退出吗？"
-                @confirm="exitCourse(record)"
-              >
+              <a-popconfirm title="确定要退出吗？" @confirm="exitCourse(record)">
                 <a href="javascript:;">退出课程</a>
               </a-popconfirm>
             </template>
@@ -93,9 +84,7 @@ const exitCourse = async (record) => {
   };
   await quitCourse(parms)
     .then((res) => {
-      res.data.code === 200
-        ? message.success({ content: "退出课程成功！" })
-        : message.error({ content: "退出课程失败！" });
+      res.data.code === 200 ? message.success({ content: "退出课程成功！" }) : message.error({ content: "退出课程失败！" });
       getJoinCourse();
     })
     .catch((err) => {
