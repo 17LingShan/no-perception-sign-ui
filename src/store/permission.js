@@ -19,6 +19,7 @@ function filterAsyncRouter(routerMap, role) {
 export const permissionStore = defineStore("permission", {
   state: () => {
     return {
+      nowPage: "",
       routers: constantRouterMap,
       addRouters: [],
     };
