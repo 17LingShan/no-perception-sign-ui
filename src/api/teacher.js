@@ -27,7 +27,6 @@ export function createCourse(parms) {
 }
 
 export function attendanceRecord(parms) {
-  console.log(parms);
   return requestService({
     url: api.attendanceRecord,
     method: "post",

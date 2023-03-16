@@ -82,7 +82,6 @@ const searchCourseAttendance = async (parms) => {
 
   await inquireAttendance(parms)
     .then((res) => {
-      console.log(res);
       if (res.data.code === 200) {
         course.data = res.data.message;
       } else {
@@ -109,7 +108,6 @@ const changeAttendance = async (record) => {
     };
     await attendanceRecord(data)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 200) {
           message.success({ content: "修改成功！" });
           if (route.query.course_id) {
