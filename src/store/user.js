@@ -39,6 +39,7 @@ export const userStore = defineStore("user", {
         this.userType = userInfo.userType;
         this.username = userInfo.username;
         this.userId = userInfo.userId;
+        this.token = localStorage.getItem(TOKEN);
         resolve();
       });
     },
