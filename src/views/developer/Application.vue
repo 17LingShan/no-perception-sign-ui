@@ -1,6 +1,8 @@
 <template>
-  <a-card title=" 申请开发权限" class="content">
-    <a-row>
+  <a-card class="content" :loading="developer.loading">
+    <template v-if="hasPermission" #title>您已获得权限！</template>
+    <template v-if="!hasPermission" #title>申请开发权限</template>
+    <a-row v-if="!hasPermission">
       <a-col :span="12" :offset="6">
         <a-form ref="developerForm" :model="developer">
           <a-form-item name="reason" label="申请理由" :rules="[{ required: true, message: 'Please input your reason!' }]">
@@ -16,14 +18,24 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { applyPermission } from "@/api/developer";
 import { message } from "ant-design-vue";
+import { queryPermission } from "@/api/developer.js";
 
 const developerForm = ref();
-
+const hasPermission = ref(false);
 const developer = reactive({
   reason: "",
+  loading: false,
+});
+
+onMounted(async () => {
+  developer.loading = true;
+  await queryPermission().then((res) => {
+    hasPermission.value = res.data.message === 1 ? true : false;
+  });
+  setTimeout(() => (developer.loading = false), 300);
 });
 
 const apply = () => {
@@ -52,6 +64,6 @@ const apply = () => {
 </script>
 <style lang="scss" scoped>
 .content {
-  min-height: 50rem;
+  height: 70vh;
 }
 </style>

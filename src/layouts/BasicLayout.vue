@@ -27,7 +27,7 @@
           </span>
         </div>
         <div class="developer-permission" v-if="isDeveloper">
-          <a-tag color="#2db7f5">{{ hasPermission }}</a-tag>
+          <a-tag :color="hasPermission.flag ? 'green' : 'red'">{{ hasPermission.text }}</a-tag>
         </div>
       </a-layout-header>
       <a-layout-content>
@@ -50,6 +50,7 @@ import { message } from "ant-design-vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import RightContent from "@/components/GlobalHeader/RightContent";
 import { queryPermission } from "@/api/developer";
+import { bool } from "vue-types";
 
 const piniaUser = userStore();
 const piniaPermission = permissionStore();
@@ -57,7 +58,10 @@ const router = useRouter();
 const route = useRoute();
 
 const isDeveloper = ref(false);
-const hasPermission = ref("");
+const hasPermission = reactive({
+  text: "",
+  flag: false,
+});
 const layout = reactive({
   menus: null,
   collapsed: false,
@@ -79,12 +83,13 @@ const changeCollapsed = () => {
   layout.collapsed = !layout.collapsed;
 };
 
-const checkPermission = () => {
-  queryPermission().then((res) => {
+const checkPermission = async () => {
+  await queryPermission().then((res) => {
     if (res.data.code === 200) {
-      hasPermission.value = "您已取得开发权限";
+      hasPermission.text = "您已取得开发权限";
+      hasPermission.flag = true;
     } else {
-      hasPermission.value = "您未取得开发权限";
+      hasPermission.text = "您未取得开发权限";
     }
   });
 };
