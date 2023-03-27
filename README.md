@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+# 无感知考勤系统的后台系统
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### 技术栈：
 
-## Recommended IDE Setup
+- ant Design
+- axios
+- vue3
+- router
+- pinia
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+### 项目启动
+
+```
+#拉取依赖
+yarn install
+
+#项目启动
+yarn dev
+```

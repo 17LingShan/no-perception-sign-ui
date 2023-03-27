@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { reactive, defineExpose, watch } from "vue";
+import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import { inquireAttendanceRecord } from "@/api/teacher";
 import { message } from "ant-design-vue";
